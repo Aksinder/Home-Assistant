@@ -31,19 +31,8 @@ http:
   ip_ban_enabled: True
   login_attempts_threshold: 2
   base_url: !secret base_url
-#  base_url: 192.168.2.121:8123
 
-google_assistant: #!include google_assistant.yaml
-  project_id: homeassistant-cdf34
-  client_id: 85RIjoOxEOncp5qcQ3swPRJNm0FnlymmcC82uOpm8R8MxIEvUmfhpe6VsMlwxwgzEwS9VwYfqk1Zw09I
-  access_token: YBq5XnB6Mgv8foJm4IELLxKuP8pDa46RSG0e2J47hLCgIUAUuoXe6vVueYtoNJlVv3kOnAYx11fHkvzf
-  #agent_user_id: robert@niska.info
-  api_key: AIzaSyDh7gPKOPZHEUfzm1vb9ypCL3Z8O5zHVCg
-  expose_by_default: false
-  exposed_domains:
-    - switch
-    - light
-    - group
+google_assistant: !include google_assistant.yaml
 
 updater:
   reporting: False

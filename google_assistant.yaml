@@ -1,8 +1,8 @@
-project_id: homeassistant-cdf34
-client_id: 85RIjoOxEOncp5qcQ3swPRJNm0FnlymmcC82uOpm8R8MxIEvUmfhpe6VsMlwxwgzEwS9VwYfqk1Zw09I
-access_token: YBq5XnB6Mgv8foJm4IELLxKuP8pDa46RSG0e2J47hLCgIUAUuoXe6vVueYtoNJlVv3kOnAYx11fHkvzf
+project_id: !secret ga_project_id
+client_id: !secret ga_client_id
+access_token: ! secret ga_access_token
 #agent_user_id: robert@niska.info
-api_key: AIzaSyDh7gPKOPZHEUfzm1vb9ypCL3Z8O5zHVCg
+api_key: !secret ga_api_key
 expose_by_default: false
 exposed_domains:
   - switch
@@ -10,7 +10,7 @@ exposed_domains:
   - cover
   - media_player
   - group
-#  - fan 
+#  - fan
   - scene
   - script
   - climate
