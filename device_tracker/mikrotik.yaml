@@ -1,6 +1,6 @@
 - platform: mikrotik
   track_new_devices: true
-  interval_seconds: 30
+  interval_seconds: 45
   consider_home: 300
   host: !secret mikrotik_ip
   username: !secret mikrotik_user
