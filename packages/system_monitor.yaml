@@ -1,0 +1,140 @@
+##################################################
+## Customize
+##################################################
+
+homeassistant:
+  customize:
+    sensor.ha_installed_version:
+      friendly_name: Installed version
+      icon: mdi:information-outline
+    #sensor.ha_current_version:
+    #  friendly_name: Latest version
+    #  icon: mdi:update
+    sensor.hass_uptime:
+      friendly_name: Uptime
+      icon: mdi:arrow-up-bold-circle-outline
+    script.gitupdate:
+      friendly_name: Git push
+      icon: mdi:github-circle
+    #sensor.nicxehomeassistant_last_build_state:
+    #  friendly_name: Last Build State
+    sensor.cpu_use:
+      friendly_name: CPU
+      icon: mdi:raspberrypi
+    sensor.disk_use_home:
+      friendly_name: SD card
+      icon: mdi:micro-sd
+    sensor.ram_available:
+      friendly_name: RAM available
+      icon: mdi:memory
+    sensor.last_boot:
+      friendly_name: Last boot
+      icon: mdi:timer
+
+##################################################
+## Group
+##################################################
+
+group:
+  ha:
+    name: Home Assistant
+    view: no
+    control: hidden
+    entities:
+        - sensor.cpu_used
+        - sensor.disk_used_home
+        - sensor.ram_available
+        - sensor.last_boot
+        - sensor.since_last_boot
+        - sensor.ha_installed_version
+        - sensor.ha_current_version
+        - sensor.uptime
+        - sensor.ssl_cert_expiry
+        - script.gitupdate
+#        - sensor.nicxehomeassistant_last_build_state
+
+##################################################
+## Sensors
+##################################################
+
+sensor:
+  #- platform: command_line
+  #  command: python3 -c "import requests; print(requests.get('https://pypi.python.org/pypi/homeassistant/json').json()['info']['version'])"
+  #  name: HA Current Version
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /home
+      - type: memory_free
+      - type: since_last_boot
+      - type: processor_use
+      - type: last_boot
+#  - platform: command_line
+#    name: HA Installed Version
+#    command: /srv/homeassistant/bin/hass --version
+
+##################################################
+## Automations
+##################################################
+
+automation:
+  - alias: "HA startup"
+    initial_state: 'on'
+    trigger:
+      platform: homeassistant
+      event: start
+    action:
+      - service: notify.html5
+        data:
+          message: "Home Assistant have rebooted and is back online"
+      - delay:
+          minutes: 1
+
+  - alias: "Update available"
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: updater.updater
+    action:
+      - service: notify.html5
+        data:
+          message: "Home Assistant {{ states.updater.updater.state }} is now available."
+
+  - alias: Hass New Device Tracked
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: device_tracker_new_device
+    action:
+      - service: notify.pushbullet
+        data_template:
+          message: >
+            'New device tracked:
+            {{trigger.event.data.host_name}}
+            ({{trigger.event.data.entity_id}})'
+
+  #- alias: Travis CI
+  #  initial_state: 'on'
+  #  trigger:
+  #    platform: state
+  #    entity_id: sensor.nicxehomeassistant_last_build_state
+  #    from: "started"
+  #  action:
+  #    service: notify.pushbullet
+  #    data_template:
+  #      message: >
+  #        Travis CI {{states.sensor.nicxehomeassistant_last_build_state.state}} at {{states.sensor.time__date.state}}
+  - alias: Disk capacity warning
+    initial_state: 'on'
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.disk_use_home
+        above: 25
+      - platform: numeric_state
+        entity_id: sensor.volume_used_volume_1
+        above: 75
+    action:
+      service: notify.html5
+      data_template:
+        message: >
+          {{ trigger.to_state.name }} is {{ trigger.to_state.state }}

@@ -1,0 +1,35 @@
+- platform: rfxtrx
+  automatic_add: true
+  devices:
+    0b11009a01e61f8e01020f80:
+      name: Tvättstuga
+    0b11002100486f6a01010f80:
+      name: Köksfönster
+    0b11002300486f6a02010f70:
+      name: Vitrinskåp
+    0b11003901b45bf20e000050:
+      name: Vardagsrum
+    0b11003801b45bf20f000050:
+      name: Byrån
+    0b11003701b45bf210000050:
+      name: Sovrum
+    0b11001c00b5282e0b010f70:
+      name: Väggbrytare Köket
+    0b11000188bc0cfe00010f70:
+      name: Badrum
+    0b11000149bc0cfe02010f70:
+      name: Iris matta
+    0b11000411bc0cfe07010f70:
+      name: Sovrum Byrå
+    0b11000675bc0cfe01010f70:
+      name: Sovrum Taklampa
+    0b11000499bc0cfe09010f70:
+      name: Algots taklampa
+    0b11000619bc0cfe08010f70:
+      name: Algots fönsterlampa
+    0b11000538bc0cfe04010f70:
+      name: Niska.it
+    0b11000415bc0cfe03010f70:
+      name: Uppfart
+    0b11000289bc0cfe07010f70:
+      name: Julbelysning (Ute)

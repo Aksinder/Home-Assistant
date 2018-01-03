@@ -1,0 +1,18 @@
+- platform: template
+  sensors:
+    watersensor_dishwasher:
+      value_template: >
+        {% if is_state("binary_sensor.watersensor_sensor", "off") %}
+          Ingen översvämning
+        {% else %}
+          Översvämning
+        {% endif %}'
+      icon_template: >
+        {% if is_state("binary_sensor.watersensor_sensor", "off") %}
+          mdi:water-off
+        {% elif is_state("binary_sensor.watersensor_sensor", "on")%}
+          water
+        {% else %}
+          mdi:comment-question-outline
+        {% endif %}
+      friendly_name: 'Vattensensor Diskmaskin'

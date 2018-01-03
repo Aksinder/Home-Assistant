@@ -1,0 +1,17 @@
+homeassistant:
+#  customize:
+
+##################################################
+## Script
+##################################################
+
+
+script:
+  test_notification:
+    sequence:
+      - service: notify.pushbullet
+        data:
+          message: 'Test notifikation!'
+      - service: notify.html5
+        data:
+          message: 'Test notifikation!'

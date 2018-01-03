@@ -1,0 +1,39 @@
+##################################################
+## Customize
+##################################################
+
+homeassistant:
+#  customize:
+
+
+alert:
+  fridge_temp:
+    name: Kylskåp varmt
+    done_message: Kylskåp normal temp
+    entity_id: sensor.temp_kyl
+    state: 'True'
+    repeat: 5
+    can_acknowledge: True
+    skip_first: false
+    notifiers:
+      - pushbullet
+      - html5
+  freezer_temp:
+    name: Frys varm
+    done_message: Freezer back to normal
+    entity_id: sensor.temp_frys
+    state: 'True'
+    repeat: 5
+    can_acknowledge: True
+    skip_first: false
+    notifiers:
+      - pushbullet
+      - html5
+
+sensor:
+  - platform: template
+    sensors:
+      temp_kyl:
+        value_template: '{{ (states("sensor.kylskapet_temperature") | float > 7.9 | float) }}'
+      temp_frys:
+        value_template: '{{ (states("sensor.frysen_temperature") | float > -22.5 | float) }}'

@@ -1,0 +1,58 @@
+- alias: "Rullgardin ner kväll"
+  hide_entity: false
+  trigger:
+    - platform: time
+      at: '19:00:00'
+  action:
+    - service: cover.close_cover
+      entity_id: cover.blindsalgots_level, cover.blindsbedroom_level
+
+- alias: "Rullgardin upp lite morgon vardag"
+  hide_entity: false
+  trigger:
+    - platform: time
+      at: '07:00:00'
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    - service: cover.set_cover_position
+      data:
+        entity_id: cover.blindsalgots_level, cover.blindsbedroom_level
+        position: 20
+
+- alias: "Rullgardin upp morgon (vardag)"
+  hide_entity: false
+  trigger:
+    - platform: time
+      at: '07:15:00'
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    - service: cover.open_cover
+      entity_id: cover.blindsalgots_level, cover.blindsbedroom_level
+
+- alias: "Rullgardin upp morgon (helg)"
+  hide_entity: false
+  trigger:
+    - platform: time
+      at: '09:15:00'
+  condition:
+    condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+    - service: cover.open_cover
+      entity_id: cover.blindsalgots_level, cover.blindsbedroom_level

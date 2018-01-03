@@ -1,0 +1,10 @@
+humidity_card:
+  name: Humidity
+  entities:
+   #- sensor.frysen_humidity
+    - sensor.ute_humidity
+    - sensor.garage_humidity
+    - sensor.krypgrund_humidity
+    - sensor.vinden_humidity
+    - sensor.multisensorbathroom_relative_humidity
+#    - sensor.multisensorniskait_relative_humidity

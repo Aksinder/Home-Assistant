@@ -1,0 +1,20 @@
+familj:
+  view: no
+  name: Familj
+  icon: mdi:home-variant
+  entities:
+    - sensor.robert
+    - sensor.tina
+    - device_tracker.teija_xperia_xz
+
+guests:
+  view: no
+  name: Gäster
+  icon: mdi:home-variant
+  entities:
+    - device_tracker.elvys_iphone
+    - group.stefan
+    - device_tracker.kerstins_honor8
+    - device_tracker.pereriks_xperiacompact
+    - group.kim
+    - group.emilia

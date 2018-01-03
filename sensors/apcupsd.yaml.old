@@ -1,0 +1,9 @@
+- platform: apcupsd
+  resources:
+    - status
+    - loadpct
+    - bcharge
+    - timeleft
+    - xonbatt
+    - xoffbatt
+    - nompower

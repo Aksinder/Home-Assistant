@@ -1,0 +1,11 @@
+- platform: rfxtrx
+  automatic_add: false
+  devices:
+    0a14117e00140b01000060:
+      name: Niska.it Magnetkontakt
+    0b1100de009823c20a010f70:
+      name: Vardagsrum Magnetkontakt
+    0b11000417bc0cfe04010f70:
+      name: Skärm Kök
+    0b11002601667dd60a010f80:
+      name: Ljussensor

@@ -1,0 +1,9 @@
+bathroom_card:
+  name: Badrum
+  control: hidden
+  entities:
+    - light.badrum
+    - sensor.multisensorbathroom_temperature
+    - sensor.multisensorbathroom_relative_humidity
+    - sensor.multisensorbathroom_luminance
+    - sensor.pir_badrum

@@ -1,0 +1,27 @@
+- platform: template
+  sensors:
+    low_battery:
+      friendly_name: "Low Battery"
+      value_template: >
+        {%- set threshold = 40 -%}
+        {%- set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] -%}
+        {%- for domain in domains -%}
+        {%- for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
+            {{ item.attributes.friendly_name }}{%- if not loop.last %}, {% endif -%}
+        {%- endfor -%}
+        {%- endfor -%}
+
+- platform: template
+  sensors:
+    zwave_battery_smoke_bedroom:
+      value_template: '{{ states.zwave.smokebedroom.attributes.battery_level|default(0) }}'
+      icon_template: >
+        {% set battery_level = states.zwave.smokebedroom.attributes.battery_level | default(0) | int %}
+        {% set battery_round = (battery_level / 10) |int * 10 %}
+        {% if battery_round >= 100 %}
+          mdi:battery
+        {% elif battery_round > 0 %}
+          mdi:battery-{{ battery_round }}
+        {% else %}
+          mdi:battery-alert
+        {% endif %}

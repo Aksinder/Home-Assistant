@@ -1,0 +1,12 @@
+livingroom_card:
+  name: Vardagsrum
+  control: hidden
+  entities:
+    - light.byran
+    - light.vardagsrum
+    - light.vitrinskap
+    - sensor.magnetic_switch_livingroom
+    - sensor.tv_power
+    - sensor.ir_temperature
+    - sensor.smoke_livingroom_temperature
+    - sensor.smoke_livingroom

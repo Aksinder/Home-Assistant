@@ -1,0 +1,12 @@
+## Wallswitch kitchen
+- alias: 'Toggle Room Light'
+  hide_entity: True
+  initial_state: True
+  trigger:
+    platform: state
+    entity_id: light.vaggbrytare_koket
+  action:
+      service: light.toggle
+      entity_id: 
+      - light.koksfonster
+      - switch.skarm_kok

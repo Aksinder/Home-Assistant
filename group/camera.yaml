@@ -1,0 +1,5 @@
+camera:
+  name: Camera
+  entities:
+    - camera.uppfart
+    - camera.baksidan

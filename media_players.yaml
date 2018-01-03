@@ -1,0 +1,19 @@
+- platform: cast
+  host: 192.168.2.32
+  name: 'Kitchen'
+- platform: cast
+  host: 192.168.2.33
+  name: Bathroom
+- platform: cast
+  host: 192.168.2.35
+  name: 'Screen Kitchen'
+#- platform: spotify
+#  client_id: !secret spotify_id
+#  client_secret: !secret spotify_password
+#- platform: plex
+#  entity_namespace: 'plex'
+#  include_non_clients: true
+#  scan_interval: 5
+#  show_all_controls: false
+#  use_custom_entity_ids: true
+#  use_episode_art: true

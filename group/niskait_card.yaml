@@ -1,0 +1,14 @@
+niska.it_card:
+  name: Niska.it
+  control: hidden
+  entities:
+    - light.niskait
+    - sensor.pir_niska_it
+    - sensor.magnetic_switch_niskait
+#    - sensor.multisensorniskait_luminance
+#    - sensor.multisensorniskait_relative_humidity
+#    - sensor.multisensorniskait_temperature
+#    - sensor.smokeniskait_temperature
+    - sensor.transmission_status
+    - sensor.transmission_down_speed
+    - sensor.transmission_up_speed

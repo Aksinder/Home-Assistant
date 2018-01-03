@@ -1,0 +1,8 @@
+algot_card:
+  name: Algots rum
+  control: hidden
+  entities:
+    - light.algots_fonsterlampa
+    - cover.blindsalgots_level
+    - sensor.smokealgots_temperature
+    - sensor.smoke_algots

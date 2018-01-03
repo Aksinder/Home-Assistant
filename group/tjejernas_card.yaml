@@ -1,0 +1,5 @@
+tjejernas_card:
+  name: Tjejernas
+  control: hidden
+  entities:
+    - light.iris_matta

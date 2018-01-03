@@ -1,0 +1,14 @@
+- platform: template
+  sensors:
+    robert:
+      value_template: '{% if is_state("group.robert", "home") %}Japp{% else %}Nix{% endif %}'
+      friendly_name: 'Robert hemma?'
+    tina:
+      value_template: '{% if is_state("group.tina", "home") %}Japp{% else %}Nix{% endif %}'
+      friendly_name: 'Tina hemma?'
+#    emilia:
+#      value_template: '{% if is_state("group.emilia", "På besök") %}Japp{% else %}Inte här{% endif %}'
+#    kim:
+#      value_template: '{% if is_state("group.kim", "På besök") %}Japp{% else %}Inte här{% endif %}'
+#    stefan:
+#      value_template: '{% if is_state("group.stefan", "På besök") %}Japp{% else %}Inte här{% endif %}'

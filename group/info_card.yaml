@@ -1,0 +1,6 @@
+info_card:
+  name: Info
+  control: hidden
+  entities:
+    #- sensor.date__time
+    - sun.sun

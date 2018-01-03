@@ -1,0 +1,11 @@
+kitchen_card:
+  name: Kök
+  control: hidden
+  entities:
+    - light.koksfonster
+    - switch.skarm_kok
+    - sensor.pirkitchen_temperature
+    - sensor.smokekitchen_temperature
+    - sensor.dishwasher_power
+    - sensor.pir_koket
+    - sensor.smoke_kitchen

@@ -1,0 +1,34 @@
+- platform: rfxtrx
+  automatic_add: true
+  devices:
+    0a52090287008129160269:
+      name: Ute
+      data_type:
+       -  Humidity
+       -  Temperature
+    0a5201033f01006e4d0359:
+      name: Krypgrund
+      data_type:
+       -  Humidity
+       -  Temperature
+#     -  Humidity status
+    0a520100a6040070260269:
+      name: Garage
+      data_type:
+       -  Humidity
+       -  Temperature
+#      -  Humidity status
+    0a520103cd028012320079:
+      name: Vinden
+      data_type:
+       -  Humidity
+       -  Temperature
+    08500758a80000eb69:
+      name: Frysen
+      data_type:
+       -  Temperature
+    08500706f70000da89:
+      name: Kylskåpet
+      data_type:
+       - Temperature
+    

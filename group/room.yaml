@@ -1,0 +1,11 @@
+room:
+  view: yes
+  icon: mdi:door-open
+  entities:
+    - group.algot_card
+    - group.bedroom_card
+    - group.livingroom_card
+    - group.bathroom_card
+    - group.tjejernas_card
+    - group.kitchen_card
+    - group.niskait_card

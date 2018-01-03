@@ -1,0 +1,31 @@
+## Motion sensor kitchen
+- alias: Lights on when motion on
+  hide_entity: True
+  trigger:
+    - platform: state
+      entity_id: sensor.pirkitchen_alarm_level
+      to: '255'
+  condition:
+    - condition: time
+      after: '22:00:00'
+      before: '05:30:00'
+  action:
+    - service: light.turn_on
+      entity_id: light.koksfonster
+- alias: Light off after 10min when motion off
+  hide_entity: True
+  trigger:
+    - platform: state
+      entity_id: sensor.pirkitchen_alarm_level
+      to: '0'
+      # Sensorn skiftar till 0 efter 3min
+      for:
+        minutes: 10
+        seconds: 0
+  condition:
+    - condition: time
+      after: '22:35:00'
+      before: '05:30:00'
+  action:
+    - service_template: light.turn_off
+      entity_id: light.koksfonster

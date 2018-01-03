@@ -1,0 +1,56 @@
+homeassistant:
+
+automation:
+  - alias: 'Julkalendern vardag'
+    initial_state: 'off'
+    hide_entity: false
+    trigger:
+      platform: time
+      at: '07:10'
+    condition:
+      condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+      - service: script.barnkanalen
+
+  - alias: 'Julkalendern helg'
+    initial_state: 'off'
+    hide_entity: false
+    trigger:
+      platform: time
+      at: '08:40'
+    condition:
+      condition: time
+      weekday:
+        - sat
+        - sun
+    action:
+      - service: script.barnkanalen
+
+##################################################
+## Script
+##################################################
+script:
+  barnkanalen:
+    alias: Barnkanalen
+    sequence:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: >
+          media_player.screen_kitchen
+        volume_level: '0.60'
+    - service: media_player.play_media
+      data_template:
+        entity_id: >
+          media_player.screen_kitchen
+        media_content_id: https://svtb-b.akamaized.net/se/svtb/master.m3u8
+#        media_content_id: 'https://www.svtplay.se/video/16017263/julkalendern-jakten-pa-tidskristallen/julkalendern-jakten-pa-tidskristallen-sasong-1-avsnitt-1?start=auto'
+#        https://www.svtplay.se/kanaler/barnkanalen?start=auto
+        media_content_type: 'video'
+    - service: light.turn_on
+      entity_id: light.koksfonster, light.byran, light.algots_fonsterlampa

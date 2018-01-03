@@ -1,0 +1,26 @@
+## Motion sensor bathroom
+- alias: Lights on when motion on
+  hide_entity: True
+  trigger:
+    - platform: state
+      entity_id: sensor.multisensorbathroom_burglar
+      to: '8'
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+  action:
+    - service: light.turn_on
+      entity_id: light.badrum
+- alias: Light off after 5min when motion off
+  hide_entity: True
+  trigger:
+    - platform: state
+      entity_id: sensor.multisensorbathroom_burglar
+      to: '0'
+      for:
+        minutes: 3
+        seconds: 0
+  action:
+    - service_template: light.turn_off
+      entity_id: light.badrum

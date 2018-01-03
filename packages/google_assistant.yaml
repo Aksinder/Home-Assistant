@@ -1,0 +1,94 @@
+##################################################
+## Customize
+##################################################
+
+homeassistant:
+  customize:
+    light.koksfonster:
+      google_assistant: true
+      google_assistant_name: Kitchen light
+      google_assistant_type: light
+      aliases:
+        - kitchen
+    light.niskait:
+      google_assistant: true
+      google_assistant_name: office light
+      google_assistant_type: light
+      aliases:
+        - office
+    cover.blindsbedroom_level:
+      google_assistant: true
+      google_assistant_name: Bedroom blinds
+      google_assistant_type: switch
+      aliases:
+        - bedroom shades
+        - bedroom covers
+        - rullgardin sovrum
+    light.algots_fonsterlampa:
+      google_assistant: true
+      google_assistant_name: Algot window
+      google_assistant_type: light
+      aliases:
+        - algot window light
+        - window light algot
+    script.goodmorning:
+      google_assistant: true
+      google_assistant_name: Good morning
+      google_assistant_type: script
+      aliases:
+        - god morgon
+        - morrn
+        - morning
+    script.goodnight:
+      google_assistant: true
+      google_assistant_name: Good night
+      google_assistant_type: switch
+      aliases:
+        - night
+        - time to sleep
+        - god natt
+
+##################################################
+## Automation
+##################################################
+
+automation:
+- alias: 'Update Google Assistant on start of Home Assistant'
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    service: google_assistant.request_sync
+##################################################
+## Script
+##################################################
+
+script:
+  goodmorning:
+    alias: 'God morgon'
+    sequence:
+    - service: light.turn_on
+      entity_id:
+        - light.koksfonster
+        - light.byran
+        - light.algots_fonsterlampa
+    - service: cover.open_cover
+      entity_id:
+        - cover.blindsalgots_level
+        - cover.blindsbedroom_level
+  goodnight:
+    alias: 'Godnatt'
+    sequence:
+    - service: light.turn_off
+      entity_id:
+        - light.koksfonster
+        - light.vardagsrum
+        - light.byran
+        - light.algots_fonsterlampa
+        - light.iris_matta
+        - light.sovrum
+        - light.niskait
+    - service: cover.close_cover
+      entity_id:
+        - cover.blindsalgots_level
+        - cover.blindsbedroom_level

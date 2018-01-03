@@ -1,0 +1,89 @@
+##################################################
+## Customize
+##################################################
+
+homeassistant:
+  customize:
+    sensor.ups_nominal_output_power:
+      hidden: no
+
+##################################################
+## Sensors
+##################################################
+
+sensor:
+  - platform: apcupsd
+    resources:
+      - status
+      - loadpct
+      - bcharge
+      - timeleft
+      - xonbatt
+      - xoffbatt
+      - nompower
+  - platform: nut
+    name: Eaton3S
+    host: localhost
+    user: !secret nut_user
+    password: !secret nut_pass
+    resources:
+      - ups.status
+      - ups.load
+      - ups.power.nominal
+#      - input.voltage
+      - battery.runtime
+
+##################################################
+## Group
+##################################################
+
+group:
+  ups_card:
+    name: UPS
+    icon: mdi:car-battery
+    control: hidden
+    entities:
+      - sensor.ups_battery
+      - sensor.ups_load
+      - sensor.ups_nominal_output_power
+      - sensor.ups_status
+      - sensor.ups_time_left
+      - sensor.ups_transfer_from_battery
+      - sensor.ups_transfer_to_battery
+      - sensor.eaton3s_battery_runtime
+      - sensor.eaton3s_load
+      - sensor.eaton3s_nominal_power
+      - sensor.eaton3s_status_data
+
+##################################################
+## Automation
+##################################################
+
+automation:
+  - alias: UPS Offline
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: sensor.ups_status
+        to: 'ONBATT'
+    action:
+      - service: notify.pushbullet
+        data:
+          title: 'UPS Status!'
+#          message: 'Strömavbrott!'
+        data_template:
+          message: "Strömavbrott: '{{ states.sensor.ups_transfer_to_battery.state }}'"
+
+  - alias: UPS Online
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: sensor.ups_status
+        to: 'ONLINE'
+    action:
+      - service: notify.pushbullet
+        data:
+          title: 'UPS Status!'
+#          message: 'Strömmen åter!'
+        data_template:
+          message: "Strömmen tillbaka: '{{ states.sensor.ups_transfer_from_battery.state }}'"

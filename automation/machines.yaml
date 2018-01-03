@@ -1,0 +1,91 @@
+# Washer Notification Sequence
+- alias: 'Washer Start'
+  hide_entity: True
+  trigger:
+    platform: state
+    entity_id: sensor.washer_pwrdn
+#    from: 'True'
+    to: 'False'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.washer_switch
+
+- alias: 'Washer Done'
+  hide_entity: True
+  trigger:
+    platform: state
+    entity_id: sensor.washer_pwrdn
+#    from: 'False'
+    to: 'True'
+    for:
+      minutes: 3
+  condition:
+      condition: state
+      entity_id: input_boolean.washer_switch
+      state: 'on'
+  action:
+    - service: notify.pushbullet
+      data:
+        message: 'Tvättmaskinen är klar!'
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.washer_switch
+
+# Dryer Notification Sequence
+- alias: 'Dryer Start'
+  hide_entity: True
+  trigger:
+    platform: state
+    entity_id: sensor.dryer_pwrup
+#    from: 'False'
+    to: 'True'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.dryer_switch
+
+- alias: 'Dryer Done'
+  hide_entity: True
+  trigger:
+    platform: state
+    entity_id: sensor.dryer_power_25_4
+    to: '1.6'
+  condition:
+    condition: state
+    entity_id: input_boolean.dryer_switch
+    state: 'on'
+  action:
+    - service: notify.pushbullet
+      data:
+        message: 'Torktumlaren är klar!'
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.dryer_switch
+
+# Dishwasher Notification Sequence
+- alias: 'Dishwasher Start'
+  hide_entity: True
+  trigger:
+    platform: state
+    entity_id: sensor.dish_pwrup
+#    state: 'True'
+#    from: 'False'
+    to: 'True'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.dish_switch
+
+- alias: 'Dishwasher Done'
+  hide_entity: True
+  trigger:
+    platform: state
+    entity_id: sensor.dishwasher_power_26_4
+    to: '2.4'
+  condition:
+    condition: state
+    entity_id: input_boolean.dish_switch
+    state: 'on'
+  action:
+    - service: notify.pushbullet
+      data:
+        message: 'Diskmaskinen är klar!'
+    - delay: 0:10
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.dish_switch

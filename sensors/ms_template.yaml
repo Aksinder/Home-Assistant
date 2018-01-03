@@ -1,0 +1,77 @@
+- platform: template
+  sensors:
+    magnetic_switch_entrance:
+      value_template: >
+        {%- if is_state('sensor.entrancedoor_alarm_level', '255') -%}
+          Dörr öppen
+        {%- elif is_state('sensor.entrancedoor_alarm_level', '0') -%}
+          Dörr stängd
+        {%- else -%}
+          Unknown
+        {%- endif -%}
+      icon_template: >
+        {%- if is_state('sensor.entrancedoor_alarm_level', '255') -%}
+          mdi:door-open
+        {%- elif is_state('sensor.entrancedoor_alarm_level', '0') -%}
+          mdi:door
+        {%- else -%}
+          mdi:comment-question-outline
+        {%- endif -%}
+      friendly_name: Magnetkontakt Entré
+
+    magnetic_switch_niskait:
+      value_template: >
+        {%- if is_state('switch.niskait_magnetkontakt', 'on') -%}
+          Dörr öppen
+        {%- elif is_state('switch.niskait_magnetkontakt', 'off') -%}
+          Dörr stängd
+        {%- else -%}
+          Unknown
+        {%- endif -%}
+      icon_template: >
+        {%- if is_state('switch.niskait_magnetkontakt', 'on') -%}
+          mdi:door-open
+        {%- elif is_state('switch.niskait_magnetkontakt', 'off') -%}
+          mdi:door
+        {%- else -%}
+          mdi:comment-question-outline
+        {%- endif -%}
+      friendly_name: Magnetkontakt Niska.it
+
+    magnetic_switch_livingroom:
+      value_template: >
+        {%- if is_state('switch.vardagsrum_magnetkontakt', 'on') -%}
+          Dörr öppen
+        {%- elif is_state('switch.vardagsrum_magnetkontakt', 'off') -%}
+          Dörr stängd
+        {%- else -%}
+          Unknown
+        {%- endif -%}
+      icon_template: >
+        {%- if is_state('switch.vardagsrum_magnetkontakt', 'on') -%}
+          mdi:door-open
+        {%- elif is_state('switch.vardagsrum_magnetkontakt', 'off') -%}
+          mdi:door
+        {%- else -%}
+          mdi:comment-question-outline
+        {%- endif -%}
+      friendly_name: Magnetkontakt Vardagsrum
+
+    magnet_switch_bedroom:
+      value_template: >
+        {%- if is_state('sensor.bedroom_door_alarm_level', '255') -%}
+          Dörr öppen
+        {%- elif is_state('sensor.bedroom_door_alarm_level', '0') -%}
+          Dörr stängd
+        {%- else -%}
+          Unknown
+        {%- endif -%}
+      icon_template: >
+        {%- if is_state('sensor.bedroom_door_alarm_level', '255') -%}
+          mdi:door-open
+        {%- elif is_state('sensor.bedroom_door_alarm_level', '0') -%}
+          mdi:door
+        {%- else -%}
+          mdi:comment-question-outline
+        {%- endif -%}
+      friendly_name: Magnetkontakt Sovrum

@@ -1,0 +1,85 @@
+##################################################
+## Customize
+##################################################
+
+homeassistant:
+#  customize:
+#    tv_script:
+#      friendly_name: Starta
+#      icon: mdi:play-pause
+
+##################################################
+## Input
+##################################################
+
+input_select:
+  tv_station:
+    name: TV Kanaler
+    options:
+     - Barnkanalen
+     - 'SVT 1'
+     - 'SVT 2'
+    initial: Barnkanalen
+    icon: mdi:television-classic
+#  chromecast_tv:
+#    name: 'Välj tv:'
+#    options:
+#     - 'Kök'
+#     - Badrum
+#     - Hela Huset
+#    initial: 'Kök'
+#    icon: mdi:television-classic
+
+input_number:
+  volume_tv:
+    name: Volym
+    icon: mdi:volume-high
+    initial: 0.3
+    min: 0
+    max: 1
+    step: 0.05
+
+##################################################
+## Script
+##################################################
+
+script:
+  tv_script:
+    alias: 'Byt TV-Kanal'
+    sequence:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.screen_kitchen
+        volume_level: '{{  states.input_slider.volume_tv.state  }}'
+    - service: media_player.play_media
+      data_template:
+        entity_id: >
+          media_player.screen_kitchen
+#         {% if is_state("input_select.chromecast_tv", "Kök") %} media_player.koket
+#         {% elif is_state("input_select.chromecast_tv", "Badrum") %} media_player.badrum
+#         {% elif is_state("input_select.chromecast_tv", "Hela Huset") %} media_player.hela_huset_
+#         {% endif %}
+        media_content_id: >
+         {% if is_state("input_select.tv_station", "Barnkanalen") %}
+            https://svtb-b.akamaized.net/se/svtb/master.m3u8
+         {% elif is_state("input_select.tv_station", "SVT 1") %}
+            https://svt1-b.akamaized.net/se/svt1/master.m3u8
+         {% elif is_state("input_select.tv_station", "SVT 2") %}
+            https://svt2-b.akamaized.net/se/svt1/master.m3u8
+         {% endif %}
+        media_content_type: 'video/mp4'
+
+##################################################
+## Group
+##################################################
+
+group:
+  tv_card:
+    name: TV
+    control: hidden
+    entities:
+      - input_select.tv_station
+#      - input_select.chromecast_tv
+      - input_number.volume_tv
+      - script.tv_script
+      - media_player.screen_kitchen

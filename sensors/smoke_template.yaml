@@ -1,0 +1,73 @@
+- platform: template
+  sensors:
+    smoke_algots:
+      value_template: '{% if is_state("sensor.smokealgots_smoke", "255") %}Rök{% else %}Ingen rök{% endif %}'
+      icon_template: >
+        {% if is_state('sensor.smokealgots_smoke', '255') %}
+          mdi:fire
+        {% elif is_state('sensor.smokealgots_smoke', '254')%}
+          mdi:smoking-off
+        {% else %}
+          mdi:comment-question-outline
+        {% endif %}
+      friendly_name: 'Brandvarnare Algots'
+
+    smoke_niskait:
+      value_template: '{% if is_state("sensor.smokeniskait_smoke", "255") %}Rök{% else %}Ingen rök{% endif %}'
+      icon_template: >
+        {% if is_state('sensor.smokeniskait_smoke', '255') %}
+          mdi:fire
+        {% elif is_state('sensor.smokeniskait_smoke', '254')%}
+          mdi:smoking-off
+        {% else %}
+          mdi:comment-question-outline
+        {% endif %}
+      friendly_name: 'Brandvarnare Niska.it'
+
+    smoke_kitchen:
+      value_template: '{% if is_state("sensor.smokekitchen_smoke", "255") %}Rök{% else %}Ingen rök{% endif %}'
+      icon_template: >
+        {% if is_state('sensor.smokekitchen_smoke', '255') %}
+          mdi:fire
+        {% elif is_state('sensor.smokekitchen_smoke', '254')%}
+          mdi:smoking-off
+        {% else %}
+          mdi:comment-question-outline
+        {% endif %}
+      friendly_name: 'Brandvarnare Kök'
+
+    smoke_bedroom:
+      value_template: '{% if is_state("sensor.smokebedroom_smoke", "255") %}Rök{% else %}Ingen rök{% endif %}'
+      icon_template: >
+        {% if is_state('sensor.smokebedroom_smoke', '255') %}
+          mdi:fire
+        {% elif is_state('sensor.smokebedroom_smoke', '254')%}
+          mdi:smoking-off
+        {% else %}
+          mdi:comment-question-outline
+        {% endif %}
+      friendly_name: 'Brandvarnare Sovrum'
+
+    smoke_livingroom:
+      value_template: '{% if is_state("sensor.smokelivingroom_smoke", "255") %}Rök{% else %}Ingen rök{% endif %}'
+      icon_template: >
+        {% if is_state('sensor.smokelivingroom_smoke', '255') %}
+          mdi:fire
+        {% elif is_state('sensor.smokelivingroom_smoke', '254')%}
+          mdi:smoking-off
+        {% else %}
+          mdi:comment-question-outline
+        {% endif %}
+      friendly_name: 'Brandvarnare Vardagsrum'
+
+    smoke_garage:
+      value_template: '{% if is_state("sensor.smokegarage_smoke", "255") %}Rök{% else %}Ingen rök{% endif %}'
+      icon_template: >
+        {% if is_state('sensor.smokegarage_smoke', '255') %}
+          mdi:fire
+        {% elif is_state('sensor.smokegarage_smoke', '0')%}
+          mdi:smoking-off
+        {% else %}
+          mdi:comment-question-outline
+        {% endif %}
+      friendly_name: 'Brandvarnare Garage'

@@ -1,0 +1,104 @@
+homeassistant:
+  name: !secret name
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: 22
+  unit_system: metric
+  time_zone: !secret timezone
+  # Customization file
+  customize: !include customize.yaml
+  customize_glob: !include customglob.yaml
+  packages: !include_dir_named packages
+
+# Enables the frontend
+frontend:
+  javascript_version: latest
+
+# Enables configuration UI
+config:
+recorder: !include recorder.yaml
+history: !include history.yaml
+logbook: !include logbook.yaml
+logger: !include logger.yaml
+
+http:
+  api_password: !secret api_password
+  ssl_certificate: !secret ssl_certificate
+  ssl_key: !secret ssl_key
+  trusted_networks:
+    - !secret trusted_networks
+    - 127.0.0.1
+  ip_ban_enabled: True
+  login_attempts_threshold: 2
+  base_url: !secret base_url
+#  base_url: 192.168.2.121:8123
+
+google_assistant: #!include google_assistant.yaml
+  project_id: homeassistant-cdf34
+  client_id: 85RIjoOxEOncp5qcQ3swPRJNm0FnlymmcC82uOpm8R8MxIEvUmfhpe6VsMlwxwgzEwS9VwYfqk1Zw09I
+  access_token: YBq5XnB6Mgv8foJm4IELLxKuP8pDa46RSG0e2J47hLCgIUAUuoXe6vVueYtoNJlVv3kOnAYx11fHkvzf
+  #agent_user_id: robert@niska.info
+  api_key: AIzaSyDh7gPKOPZHEUfzm1vb9ypCL3Z8O5zHVCg
+  expose_by_default: false
+  exposed_domains:
+    - switch
+    - light
+    - group
+
+updater:
+  reporting: False
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+zwave:
+  usb_path: /dev/ttyACM0
+
+rfxtrx:
+  device: /dev/ttyUSB0
+  debug:
+
+sun:
+
+notify: !include notify.yaml
+
+# Text to speech
+tts:
+  - platform: google
+    cache: true
+    language: 'sv'
+
+panel_iframe:
+  router:
+    title: 'Router trafik'
+    url: !secret router_url
+  plex:
+    title: 'Plex'
+    url: !secret plex_url
+
+group: !include_dir_merge_named group/
+#alert: !include_dir_merge_list alert
+automation: !include_dir_merge_list automation
+#script: !include !include_dir_merge_list
+sensor: !include_dir_merge_list sensors
+light: !include_dir_merge_list lights
+switch: !include_dir_merge_list switches
+input_boolean: !include input/input_boolean.yaml
+#input_number: !include input/input_number.yaml
+#input_select: !include input/input_select.yaml
+media_player: !include media_players.yaml
+device_tracker: !include_dir_merge_list device_tracker
+
+ffmpeg:
+  ffmpeg_bin: /usr/bin/ffmpeg
+# Cameras
+camera: !include camera.yaml
+
+apcupsd:
+  host: !secret apcupsd_ip
+
+climate:
+  platform: zwave

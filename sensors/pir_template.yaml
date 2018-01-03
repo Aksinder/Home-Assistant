@@ -1,0 +1,58 @@
+- platform: template
+  sensors:
+    pir_koket:
+      value_template: >
+        {% if is_state("sensor.pirkitchen_alarm_level", "255") %}
+          Rörelse
+        {% else %}
+          Ingen rörelse
+        {% endif %}
+      icon_template: >
+        {% if is_state("sensor.pirkitchen_alarm_level", "255") %}
+          mdi:run-fast
+        {% else %}
+          mdi:run
+        {% endif %}
+      friendly_name: Rörelsedeckare Köket
+    pir_badrum:
+      value_template: >
+        {% if is_state("sensor.multisensorbathroom_burglar", "8") %}
+          Rörelse
+        {% else %}
+          Ingen rörelse
+        {% endif %}
+      icon_template: >
+        {% if is_state("sensor.multisensorbathroom_burglar", "8") %}
+          mdi:run-fast
+        {% else %}
+          mdi:run
+        {% endif %}
+      friendly_name: Rörelsedeckare Badrum
+    pir_niska_it:
+      value_template: >
+        {% if is_state("binary_sensor.multisensorniskait_sensor", "on") %}
+          Rörelse
+        {% else %}
+          Ingen rörelse
+        {% endif %}
+      icon_template: >
+        {% if is_state("binary_sensor.multisensorniskait_sensor", "on") %}
+          mdi:run-fast
+        {% else %}
+          mdi:run
+        {% endif %}
+      friendly_name: Rörelsedeckare Niska.it
+    pir_groventre:
+      value_template: >
+        {% if is_state("binary_sensor.secondentrance", "on") %}
+          Rörelse
+        {% else %}
+          Ingen rörelse
+        {% endif %}
+      icon_template: >
+        {% if is_state("binary_sensor.secondentrance", "on") %}
+          mdi:run-fast
+        {% else %}
+          mdi:run
+        {% endif %}
+      friendly_name: Rörelsedeckare Groventré

@@ -1,0 +1,47 @@
+homeassistant:
+  customize:
+    binary_sensor.doorbell_front_door:
+      friendly_name: Ringklocka
+
+switch:
+  - platform: rfxtrx
+    signal_repetitions: 3
+    devices:
+      0b1100760154afc201040f70:
+        name: Ringklocka
+        fire_event: true
+      0b1100ec00ad819e01040f80:
+        name: Ringklocka Entré
+        fire_event: true
+
+input_boolean:
+  doorbell_ringing:
+    name: Doorbell is ringing
+    initial: off
+
+automation:
+  - alias: Doorbell Front Door Trigger Boolean
+    initial_state: 'on'
+    trigger:
+      - platform: event
+        event_type: button_pressed
+        event_data:
+          state: 'group on'
+          entity_id: switch.doorbell_front_door
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.doorbell_ringing
+
+  - alias: Doorbell Front Door Ring
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: input_boolean.doorbell_ringing
+        to: 'on'
+    action:
+      - service: notify.pushbullet
+        data:
+          title: 'Doorbell ringing!'
+          message: 'Someone is at the front door'
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.doorbell_ringing

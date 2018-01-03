@@ -1,0 +1,87 @@
+##################################################
+## Customize
+##################################################
+
+homeassistant:
+#  customize:
+#    radio_script:
+#      friendly_name: Starta
+#      icon: mdi:play
+
+##################################################
+## Input
+##################################################
+
+input_select:
+  radio_station:
+    name: Radiostationer
+    options:
+     - Radioseven
+     - 'P4 Gotland'
+     - 'Lugna Favoriter'
+    initial: 'P4 Gotland'
+    icon: mdi:radio
+  chromecast_radio:
+    name: 'Välj högtalare:'
+    options:
+     - 'Kök'
+     - Badrum
+     - Hela Huset
+    initial: 'Kök'
+    icon: mdi:speaker-wireless
+
+input_number:
+  volume_radio:
+    name: Volym
+    icon: mdi:volume-high
+    initial: 0.3
+    min: 0
+    max: 1
+    step: 0.05
+
+##################################################
+## Script
+##################################################
+
+script:
+  radio_script:
+    alias: 'Byt Radiokanal'
+    sequence:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: >
+          {% if is_state("input_select.chromecast_radio", "Kök") %} media_player.kitchen
+          {% elif is_state("input_select.chromecast_radio", "Badrum") %} media_player.bathroom
+          {% elif is_state("input_select.chromecast_radio", "Hela Huset") %} media_player.whole_house
+          {% endif %}
+        volume_level: '{{  states.input_slider.volume_radio.state  }}'
+    - service: media_player.play_media
+      data_template:
+        entity_id: >
+          {% if is_state("input_select.chromecast_radio", "Kök") %} media_player.kitchen
+          {% elif is_state("input_select.chromecast_radio", "Badrum") %} media_player.bathroom
+          {% elif is_state("input_select.chromecast_radio", "Hela Huset") %} media_player.whole_house
+          {% endif %}
+        media_content_id: >
+          {% if is_state("input_select.radio_station", "Radioseven") %}
+            http://178.32.238.139:8500/;stream/
+          {% elif is_state("input_select.radio_station", "P4 Gotland") %}
+            http://http-live.sr.se/p4gotland-mp3-192
+          {% elif is_state("input_select.radio_station", "Lugna Favoriter") %}
+            http://fm03-icecast.mtg-r.net/fm03_mp3
+          {% endif %}
+        media_content_type: 'audio/mp3'
+
+##################################################
+## Group
+##################################################
+
+group:
+  radio_card:
+    name: Radio
+    control: hidden
+    entities:
+      - input_select.radio_station
+      - input_select.chromecast_radio
+      - input_number.volume_radio
+      - script.radio_script

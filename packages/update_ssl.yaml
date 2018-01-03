@@ -1,0 +1,31 @@
+#https://home-assistant.io/docs/ecosystem/certificates/lets_encrypt/
+homeassistant:
+
+sensor:
+  - platform: command_line
+    name: SSL cert expiry
+    unit_of_measurement: dagar
+    scan_interval: 10800
+    command: "ssl-cert-check -b -c /etc/letsencrypt/live/cloud.niska.it/cert.pem | awk '{ print $NF }'"
+
+shell_command:
+  renew_ssl: ~/certbot/certbot-auto renew --quiet --no-self-upgrade --standalone --preferred-challenges http-01
+
+automation:
+  - alias: Auto Renew SSL Cert
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.ssl_cert_expiry
+        below: 29
+    action:
+      - service: shell_command.renew_ssl
+
+  - alias: SSL expiry notification
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.ssl_cert_expiry
+        below: 21
+    action:
+      - service: notify.html5
+        data:
+          message: 'Warning - SSL certificate expires in 21 days and has not been automatically renewed'

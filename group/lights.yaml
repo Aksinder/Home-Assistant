@@ -1,0 +1,4 @@
+lights:
+  name: Lampor
+  entities:
+    - group.all_lights

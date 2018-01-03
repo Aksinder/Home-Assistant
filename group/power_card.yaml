@@ -1,0 +1,13 @@
+power_card:
+  view: no
+  name: Power
+  icon: mdi:home-variant
+  entities:
+    - sensor.dishwasher_power
+    - sensor.dryer_power
+    - sensor.washer_power
+    - sensor.dishwasher_energy
+    - sensor.dryer_energy
+    - sensor.washer_energy
+    - sensor.tv_power
+    - sensor.tv_energy

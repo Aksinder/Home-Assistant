@@ -1,0 +1,14 @@
+- platform: ffmpeg
+  name: Uppfart
+  input: -rtsp_transport tcp -i rtsp://192.168.2.81:554/tcp_live/ch0_1
+  extra_arguments: -pred 1
+- platform: ffmpeg
+  name: Baksidan
+  input: -rtsp_transport tcp -i rtsp://192.168.2.82:554/tcp_live/ch0_1
+  extra_arguments: -pred 1
+# Snapshot path: !secret camera_snapshotpath
+#- platform: onvif
+#  name: Test
+#  host: 192.168.2.81
+#  port: 12001
+#  username: admin

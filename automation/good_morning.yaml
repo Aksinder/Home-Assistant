@@ -1,0 +1,37 @@
+- alias: Good Morning
+  hide_entity: false
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: sensor.pirkitchen_alarm_level
+      to: '255'
+  condition:
+    - condition: time
+      after: '06:30:00'
+      before: '10:00:00'
+    #- condition: state
+    #  entity_id: group.all_devices
+    #  state: 'home'
+    - condition: state
+      entity_id: input_boolean.good_morning
+      state: 'off'
+  action:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.kitchen
+        volume_level: 0.6
+    -  service: tts.google_say
+       entity_id: media_player.kitchen
+       data_template:
+         message: "God Morgon! Temperaturen ute är: '{{ states.sensor.ute_temperature.state }}'"
+    -  service: input_boolean.turn_on
+       entity_id: input_boolean.good_morning
+
+- alias: Good Morning off
+  hide_entity: true
+  trigger:
+    platform: time
+    at: '10:01:00'
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.good_morning

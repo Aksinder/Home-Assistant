@@ -1,0 +1,32 @@
+notify_home:
+  name: Notify when someone arrives home
+  initial: on
+  icon: mdi:car
+
+#automation_test:
+#  name: Test automation (Radio)
+#  initial: off
+#  icon: mdi:radio
+
+dish_switch:
+  name: Diskmaskin
+  initial: off
+  icon: mdi:washing-machine
+
+dryer_switch:
+  name: Torktumlare
+  initial: off
+  icon: mdi:washing-machine
+
+washer_switch:
+  name: Tvättmaskin
+  initial: off
+  icon: mdi:washing-machine
+
+good_morning:
+  name: Good Morning
+  initial: off
+
+alarm:
+  name: Larm av/på
+  initial: off

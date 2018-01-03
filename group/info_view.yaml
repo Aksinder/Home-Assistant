@@ -1,0 +1,16 @@
+#default_view:
+test_default:
+  view: yes
+  name: Info
+  icon: mdi:information-outline
+  entities:
+    - group.familj
+    #- group.info_card
+    - group.security_card
+    - group.security_card_smoke
+    - group.power_card
+    - group.ups_card
+    - group.mouse
+    - group.ha
+    - group.pi
+    - group.internet_card

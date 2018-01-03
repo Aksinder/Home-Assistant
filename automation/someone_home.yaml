@@ -1,0 +1,40 @@
+- alias: Robert Arriving home
+  #hide_entity: True
+  trigger:
+    - platform: state
+      entity_id: sensor.robert
+      to: 'home'
+  condition:
+    - condition: state
+      entity_id: input_boolean.notify_home
+      state: 'on'
+    - condition: state
+      entity_id: sensor.tina
+      state: 'home'
+    - condition: time
+      before: '19:30:00'
+  action:
+    service: tts.google_say
+    entity_id: media_player.whole_house
+    data:
+      message: 'Pappa hemma!'
+- alias: Tina Arriving home
+  #hide_entity: True
+  trigger:
+    - platform: state
+      entity_id: sensor.tina
+      to: 'home'
+  condition:
+    - condition: state
+      entity_id: input_boolean.notify_home
+      state: 'on'
+    - condition: state
+      entity_id: sensor.robert
+      state: 'home'
+    - condition: time
+      before: '19:30:00'
+  action:
+    service: tts.google_say
+    entity_id: media_player.whole_house
+    data:
+      message: 'Mamma hemma!'

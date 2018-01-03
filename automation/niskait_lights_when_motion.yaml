@@ -1,0 +1,13 @@
+- alias: Niska.it Lights on when motion
+  hide_entity: True
+  trigger:
+    - platform: state
+      entity_id: sensor.pir_niska_it
+      to: 'Rörelse'
+  condition:
+    - condition: state
+      entity_id: switch.ljussensor
+      state: 'on'
+  action:
+    - service: light.turn_on
+      entity_id: light.niskait

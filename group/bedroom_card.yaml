@@ -1,0 +1,11 @@
+bedroom_card:
+  name: Sovrum
+  control: hidden
+  entities:
+    - light.sovrum
+    - light.sovrum_byra
+    - light.sovrum_taklampa
+    - cover.blindsbedroom_level
+    - sensor.smoke_bedroom
+    - sensor.magnet_switch_bedroom
+    - sensor.smokebedroom_temperature

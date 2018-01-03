@@ -1,0 +1,11 @@
+- alias: Lights off at sunrise (offset)
+  hide_entity: True
+  trigger:
+    - platform: sun
+      event: sunrise
+      offset: '-00:45:00'
+  action:
+    service: homeassistant.turn_off
+    entity_id:
+      - light.uppfart
+      - light.julbelysning_ute

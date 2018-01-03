@@ -1,0 +1,32 @@
+"sensor.*_alarm_type*":
+  hidden: true
+"sensor.*_alarm_level*":
+  hidden: true
+"sensor.*_burglar*":
+  hidden: true
+"sensor.*_exporting*":
+  hidden: true
+"sensor.*_energy*":
+  hidden: true
+"sensor.*_previous_reading*":
+  hidden: true
+"sensor.*_current*":
+  hidden: true
+"sensor.*_general*":
+  hidden: true
+"sensor.*_heat*":
+  hidden: true
+"sensor.*_power*":
+  hidden: true
+"sensor.*_sensor*":
+  hidden: true
+"binary_sensor.*_sensor*":
+  hidden: true
+"sensor.*_smoke*":
+  hidden: true
+"sensor.*sourcenodeid":
+  hidden: true
+"sensor.*system":
+  hidden: true
+"sensor.*unknown":
+  hidden: true

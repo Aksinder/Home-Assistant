@@ -1,0 +1,104 @@
+##################################################
+## Customize
+##################################################
+
+homeassistant:
+  customize:
+    sensor.musfalla_1:
+#      icon: mdi:mouse-variant
+      friendly_name: Musfälla 1
+    sensor.musfalla_2:
+#      icon: mdi:mouse-variant
+      friendly_name: Musfälla 2
+
+
+##################################################
+## Switch
+##################################################
+switch:
+  - platform: rfxtrx
+#    signal_repetitions: 3
+    devices:
+      0b11002a016093ba02010f70:
+        name: Musfälla 1
+        fire_event: true
+      0b1100d4016090ce02010f80:
+        name: Musfälla 2
+        fire_event: true
+
+##################################################
+## Group
+##################################################
+
+group:
+  mouse:
+    name: Musfällor
+    view: no
+    control: hidden
+    entities:
+        - sensor.musfalla_1
+        - sensor.musfalla_2
+
+##################################################
+## Sensors
+##################################################
+
+sensor:
+  - platform: template
+    sensors:
+      musfalla_1:
+        value_template: >-
+          {% if is_state('switch.musfalla_1', 'off') %}
+            'Fångat något!'
+          {% else %}
+            Tom
+          {% endif %}
+        icon_template: >
+          {% if is_state('switch.musfalla_1', 'on') %}
+            mdi:mouse-variant-off
+          {% elif is_state('switch.musfalla_1', 'off')%}
+            mdi:mouse-variant
+          {% else %}
+            mdi:comment-question-outline
+          {% endif %}
+  - platform: template
+    sensors:
+      musfalla_2:
+        value_template: >-
+          {% if is_state('switch.musfalla_2', 'off') %}
+            'Fångat något!'
+          {% else %}
+            Tom
+          {% endif %}
+        icon_template: >
+          {% if is_state('switch.musfalla_2', 'on') %}
+            mdi:mouse-variant-off
+          {% elif is_state('switch.musfalla_2', 'off')%}
+            mdi:mouse-variant
+          {% else %}
+            mdi:comment-question-outline
+          {% endif %}
+
+##################################################
+## Automations
+##################################################
+
+automation:
+  - alias: 'Mousetrap on @ boot'
+    hide_entity: no
+    trigger:
+      - platform: homeassistant
+        event: start
+    action:
+      service: switch.turn_on
+      entity_id: switch.musfalla_1, switch.musfalla_2
+  - alias: "Caught one"
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: switch.musfalla_1, switch.musfalla_2
+      to: 'off'
+    action:
+      - service: notify.pushbullet
+        data:
+          message: "Jag har fångat något åt dig!"

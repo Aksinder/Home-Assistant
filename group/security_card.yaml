@@ -1,0 +1,28 @@
+security_card:
+  view: no
+  name: Security
+  icon: mdi:home-variant
+  entities:
+    #- alarm_control_panel.home_alarm
+    - sensor.low_battery
+    - sensor.pir_koket
+    - sensor.pir_badrum
+    - sensor.pir_groventre
+    - sensor.pir_niska_it
+    - sensor.magnetic_switch_entrance
+    - sensor.magnetic_switch_niskait
+    - sensor.magnetic_switch_livingroom
+    - sensor.magnet_switch_bedroom
+
+security_card_smoke:
+  view: no
+  name: Smoke/Water
+  icon: mdi:home-variant
+  entities:
+    - sensor.smoke_niskait
+    - sensor.smoke_algots
+    - sensor.smoke_kitchen
+    - sensor.smoke_livingroom
+    - sensor.smoke_bedroom
+    - sensor.smoke_garage
+    - sensor.watersensor_dishwasher

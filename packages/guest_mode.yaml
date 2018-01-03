@@ -1,0 +1,10 @@
+homeassistant:
+  customize:
+    input_boolean.guest_mode:
+      confirm_controls_show_lock: true
+
+input_boolean:
+  guest_mode:
+    name: Guest Mode
+    initial: 'off'
+    icon: mdi:account-multiple

@@ -1,0 +1,30 @@
+## Motion sensor kitchen
+- alias: Screen on when motion on
+  hide_entity: True
+  trigger:
+    - platform: state
+      entity_id: sensor.pirkitchen_alarm_level
+      to: '255'
+  condition:
+    - condition: time
+      before: '23:00:00'
+      after: '06:30:00'
+  action:
+    - service: homeassistant.turn_on
+      entity_id: switch.skarm_kok
+- alias: Screen off after 30min when motion off
+  hide_entity: True
+  trigger:
+    - platform: state
+      entity_id: sensor.pirkitchen_alarm_level
+      to: '0'
+      for:
+        minutes: 30
+        seconds: 0
+  condition:
+    - condition: time
+      before: '23:35:00'
+      after: '06:30:00'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: switch.skarm_kok

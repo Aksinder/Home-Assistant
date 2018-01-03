@@ -1,0 +1,8 @@
+house_view:
+  view: yes
+  #icon: mdi:oil-temperature
+  icon: mdi:temperature-celsius
+  entities:
+    - group.temperature_card
+    - group.humidity_card
+    - climate.ir_heating

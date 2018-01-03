@@ -1,0 +1,17 @@
+- alias: Lights on at sunset (offset)
+  hide_entity: True
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: '-01:15:00'
+  action:
+    service: homeassistant.turn_on
+    entity_id:
+      - light.koksfonster
+      - light.vardagsrum
+      - light.byran
+      - light.uppfart
+      - light.algots_fonsterlampa
+      - light.iris_matta
+      - light.sovrum
+      - light.julbelysning_ute
