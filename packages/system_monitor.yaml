@@ -89,6 +89,12 @@ automation:
           message: "Home Assistant have rebooted and is back online"
       - delay:
           minutes: 1
+    action:
+      - service: notify.pushbullet
+        data:
+          message: "Home Assistant have rebooted and is back online"
+      - delay:
+          minutes: 1
 
   - alias: "Update available"
     initial_state: 'on'

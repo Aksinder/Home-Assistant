@@ -24,6 +24,12 @@ homeassistant:
         - bedroom shades
         - bedroom covers
         - rullgardin sovrum
+    cover.blindsalgots_level:
+      google_assistant: true
+      google_assistant_name: Algots blind
+      google_assistant_type: switch
+      aliases:
+        - algots shades
     light.algots_fonsterlampa:
       google_assistant: true
       google_assistant_name: Algot window

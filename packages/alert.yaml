@@ -34,6 +34,6 @@ sensor:
   - platform: template
     sensors:
       temp_kyl:
-        value_template: '{{ (states("sensor.kylskapet_temperature") | float > 7.9 | float) }}'
+        value_template: '{{ (states("sensor.kylskapet_temperature") |default(6.0) | float > 7.9 | float) }}'
       temp_frys:
-        value_template: '{{ (states("sensor.frysen_temperature") | float > -22.5 | float) }}'
+        value_template: '{{ (states("sensor.frysen_temperature") |default(-24.0) | float > -22.5 | float) }}'

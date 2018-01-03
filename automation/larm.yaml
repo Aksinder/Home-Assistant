@@ -1,0 +1,49 @@
+- alias: Push when movement in kitchen
+  hide_entity: True
+  trigger:
+    - platform: state
+      entity_id: sensor.pirkitchen_alarm_level
+      to: '255'
+    - platform: state
+      entity_id: sensor.smokeniskait_smoke
+      to: '255'
+    - platform: state
+      entity_id: sensor.smokealgots_smoke
+      to: '255'
+    - platform: state
+      entity_id: sensor.smokebedroom_smoke_
+      to: '255'
+    - platform: state
+      entity_id: sensor.smokelivingroom_smoke
+      to: '255'
+    - platform: state
+      entity_id: sensor.smokekitchen_smoke
+      to: '255'
+    - platform: state
+      entity_id: sensor.multisensorbathroom_burglar
+      to: '8'
+    - platform: state
+      entity_id: switch.vardagsrum_magnetkontakt
+      to: 'on'
+    - platform: state
+      entity_id: sensor.entrancedoor_alarm_level
+      to: '255'
+    - platform: state
+      entity_id: sensor.bedroom_door_alarm_level
+      to: '255'
+    - platform: state
+      entity_id: switch.niskait_magnetkontakt
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.alarm
+      state: 'on'
+  action:
+    - service: notify.pushbullet
+      data_template:
+        title: "Niska@Home! '{{ trigger.to_state.attributes.friendly_name }}'"
+        message: Larm utlöst!
+    - service: notify.html5
+      data_template:
+        title: "Niska@Home! '{{ trigger.to_state.attributes.friendly_name }}'"
+        message: Larm utlöst!
