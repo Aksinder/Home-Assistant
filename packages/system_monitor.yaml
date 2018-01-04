@@ -7,9 +7,10 @@ homeassistant:
     sensor.ha_installed_version:
       friendly_name: Installed version
       icon: mdi:information-outline
-    #sensor.ha_current_version:
-    #  friendly_name: Latest version
-    #  icon: mdi:update
+    sensor.ha_current_version:
+      friendly_name: Latest version
+      icon: mdi:update
+      hidden: false
     sensor.hass_uptime:
       friendly_name: Uptime
       icon: mdi:arrow-up-bold-circle-outline
@@ -58,9 +59,9 @@ group:
 ##################################################
 
 sensor:
-  #- platform: command_line
-  #  command: python3 -c "import requests; print(requests.get('https://pypi.python.org/pypi/homeassistant/json').json()['info']['version'])"
-  #  name: HA Current Version
+  - platform: command_line
+    command: python3 -c "import requests; print(requests.get('https://pypi.python.org/pypi/homeassistant/json').json()['info']['version'])"
+    name: HA Current Version
   - platform: systemmonitor
     resources:
       - type: disk_use_percent
@@ -69,9 +70,9 @@ sensor:
       - type: since_last_boot
       - type: processor_use
       - type: last_boot
-#  - platform: command_line
-#    name: HA Installed Version
-#    command: /srv/homeassistant/bin/hass --version
+  - platform: command_line
+    name: HA Installed Version
+    command: /srv/homeassistant/homeassistant_venv/bin/hass --version
 
 ##################################################
 ## Automations
@@ -89,7 +90,6 @@ automation:
           message: "Home Assistant have rebooted and is back online"
       - delay:
           minutes: 1
-    action:
       - service: notify.pushbullet
         data:
           message: "Home Assistant have rebooted and is back online"
@@ -103,6 +103,9 @@ automation:
       entity_id: updater.updater
     action:
       - service: notify.html5
+        data:
+          message: "Home Assistant {{ states.updater.updater.state }} is now available."
+      - service: notify.pushbullet
         data:
           message: "Home Assistant {{ states.updater.updater.state }} is now available."
 
@@ -140,7 +143,11 @@ automation:
         entity_id: sensor.volume_used_volume_1
         above: 75
     action:
-      service: notify.html5
-      data_template:
-        message: >
-          {{ trigger.to_state.name }} is {{ trigger.to_state.state }}
+      - service: notify.html5
+        data_template:
+          message: >
+            {{ trigger.to_state.name }} is {{ trigger.to_state.state }}
+      - service: notify.html5
+        data_template:
+          message: >
+            {{ trigger.to_state.name }} is {{ trigger.to_state.state }}

@@ -27,5 +27,5 @@
       after: '22:35:00'
       before: '05:30:00'
   action:
-    - service_template: light.turn_off
+    - service: light.turn_off
       entity_id: light.koksfonster

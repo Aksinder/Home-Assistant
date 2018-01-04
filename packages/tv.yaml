@@ -83,3 +83,24 @@ group:
       - input_number.volume_tv
       - script.tv_script
       - media_player.screen_kitchen
+
+##################################################
+## Automation
+##################################################
+
+automation:
+  alias: 'Set TV Volume'
+  hide_entity: true
+  trigger:
+    platform: state
+    entity_id: input_number.volume_tv
+  action:
+    service: media_player.volume_set
+    data_template:
+      entity_id: >
+         {% if is_state("input_select.chromecast_tv", "Kök") %} media_player.kitchen
+         {% elif is_state("input_select.chromecast_tv", "Badrum") %} media_player.bathroom
+         {% elif is_state("input_select.chromecast_tv", "Korridoren") %} media_player.hallway_speaker
+         {% elif is_state("input_select.chromecast_tv", "Hela Huset") %} media_player.whole_house
+         {% endif %}
+      volume_level: '{{  states.input_number.volume_tv.state  }}'

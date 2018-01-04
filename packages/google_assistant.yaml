@@ -40,7 +40,7 @@ homeassistant:
     script.goodmorning:
       google_assistant: true
       google_assistant_name: Good morning
-      google_assistant_type: script
+      google_assistant_type: switch
       aliases:
         - god morgon
         - morrn
