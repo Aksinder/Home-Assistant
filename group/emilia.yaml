@@ -1,5 +1,0 @@
-emilia:
-  name: Emilia
-  entities:
-    - device_tracker.emiliasiphone
-    - device_tracker.emilias_iphone_bt

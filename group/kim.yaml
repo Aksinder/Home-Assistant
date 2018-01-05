@@ -1,5 +1,0 @@
-kim:
-  name: Kim
-  entities:
-    - device_tracker.joakimsiphone
-    - device_tracker.kimsapplewatch

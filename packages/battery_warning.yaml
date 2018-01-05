@@ -1,0 +1,141 @@
+##################################################
+## Customize
+##################################################
+
+homeassistant:
+  customize:
+    sensor.low_battery:
+      icon: mdi:battery-alert
+    sensor.zwave_battery_smoke_bedroom:
+      hidden: False
+      friendly_name: Brandvarnare Sovrum
+      unit_of_measurement: "%"
+    sensor.zwave_battery_smoke_algots:
+      hidden: False
+      friendly_name: Brandvarnare Algots
+      unit_of_measurement: "%"
+    sensor.zwave_battery_smoke_garage:
+      hidden: False
+      friendly_name: Brandvarnare Garage
+      unit_of_measurement: "%"
+    sensor.frysen_battery:
+      friendly_name: Frysen
+      unit_of_measurement: "%"
+
+##################################################
+## Group
+##################################################
+
+group:
+  battery_status:
+    view: yes
+    name: Battery Status
+    icon: mdi:battery-unknown
+    entities:
+      - group.battery_status_card
+
+  battery_status_card:
+    name: Batteristatus
+    control: hidden
+    entities:
+      - sensor.zwave_battery_smoke_bedroom
+      - sensor.zwave_battery_smoke_algots
+      - sensor.zwave_battery_smoke_garage
+      - sensor.frysen_battery
+
+##################################################
+## Sensors
+##################################################
+
+sensor:
+  - platform: template
+    sensors:
+      low_battery:
+        friendly_name: "Low Battery"
+        value_template: >
+          {%- set threshold = 20 -%}
+          {%- set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] -%}
+          {%- for domain in domains -%}
+          {%- for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
+            {{ item.attributes.friendly_name }}{%- if not loop.last %}, {% endif -%}
+          {%- endfor -%}
+          {%- endfor -%}
+
+  - platform: template
+    sensors:
+      zwave_battery_smoke_bedroom:
+        value_template: '{{ states.zwave.smokebedroom.attributes.battery_level|default(0) }}'
+        icon_template: >
+          {% set battery_level = states.zwave.smokebedroom.attributes.battery_level | default(0) | int %}
+          {% set battery_round = (battery_level / 10) |int * 10 %}
+          {% if battery_round >= 100 %}
+            mdi:battery
+          {% elif battery_round > 0 %}
+            mdi:battery-{{ battery_round }}
+          {% else %}
+            mdi:battery-alert
+          {% endif %}
+      zwave_battery_smoke_algots:
+        value_template: '{{ states.zwave.smokealgots.attributes.battery_level|default(0) }}'
+        icon_template: >
+          {% set battery_level = states.zwave.smokealgots.attributes.battery_level | default(0) | int %}
+          {% set battery_round = (battery_level / 10) |int * 10 %}
+          {% if battery_round >= 100 %}
+            mdi:battery
+          {% elif battery_round > 0 %}
+            mdi:battery-{{ battery_round }}
+          {% else %}
+            mdi:battery-alert
+          {% endif %}
+      zwave_battery_smoke_garage:
+        value_template: '{{ states.zwave.smokegarage.attributes.battery_level|default(0) }}'
+        icon_template: >
+          {% set battery_level = states.zwave.smokegarage.attributes.battery_level | default(0) | int %}
+          {% set battery_round = (battery_level / 10) |int * 10 %}
+          {% if battery_round >= 100 %}
+            mdi:battery
+          {% elif battery_round > 0 %}
+            mdi:battery-{{ battery_round }}
+          {% else %}
+            mdi:battery-alert
+          {% endif %}
+      frysen_battery:
+        value_template: '{{ states.sensor.frysen_temperature.attributes["Battery numeric"] *10 }}'
+        icon_template: >
+          {% set battery_level = states.sensor.frysen_temperature.attributes["Battery numeric"] | default(0) | int %}
+          {% set battery_round = (battery_level) |int * 10 %}
+          {% if battery_round >= 100 %}
+            mdi:battery
+          {% elif battery_round > 0 %}
+            mdi:battery-{{ battery_round }}
+          {% else %}
+            mdi:battery-alert
+          {% endif %}
+
+##################################################
+## Automation
+##################################################
+
+automation:
+  - alias: 'Battery Alert'
+    trigger:
+      - platform: time
+        at: '10:00:00'
+      - platform: time
+        at: '20:25:00'
+    condition:
+      condition: template
+      value_template: "{% if states('sensor.low_battery') %}true{% endif %}"
+    action:
+      - service: notify.pushbullet
+      #- service: persistent_notification.create
+        data_template:
+          title: Low Battery
+          message: "{{ states('sensor.low_battery') }}"
+          notification_id: low-battery-alert
+      - service: notify.html5
+      #- service: persistent_notification.create
+        data_template:
+          title: Low Battery
+          message: "{{ states('sensor.low_battery') }}"
+          notification_id: low-battery-alert

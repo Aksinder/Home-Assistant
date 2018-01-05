@@ -7,6 +7,7 @@ livingroom_card:
     - light.vitrinskap
     - sensor.magnetic_switch_livingroom
     - sensor.tv_power
+    - switch.tv_switch
     - sensor.ir_temperature
     - sensor.smoke_livingroom_temperature
     - sensor.smoke_livingroom

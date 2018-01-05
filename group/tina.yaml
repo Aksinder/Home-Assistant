@@ -1,4 +1,0 @@
-tina:
-  name: Tina
-  entities:
-    - device_tracker.Tinas_Xperia_XZ1_compact

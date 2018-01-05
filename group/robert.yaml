@@ -1,5 +1,0 @@
-robert:
-  name: Robert
-  entities:
-    - device_tracker.roberts_h8_bt_mac
-    - device_tracker.roberts_h8_mac

@@ -18,3 +18,32 @@ guests:
     - device_tracker.pereriks_xperiacompact
     - group.kim
     - group.emilia
+
+robert:
+  name: Robert
+  entities:
+    - device_tracker.roberts_h8_bt_mac
+    - device_tracker.roberts_h8_mac
+
+tina:
+  name: Tina
+  entities:
+    - device_tracker.Tinas_Xperia_XZ1_compact
+
+stefan:
+  name: Stefan
+  entities:
+    - device_tracker.stefans_iphone
+    - device_tracker.stefans_iphone_bt
+
+emilia:
+  name: Emilia
+  entities:
+    - device_tracker.emiliasiphone
+    - device_tracker.emilias_iphone_bt
+
+kim:
+  name: Kim
+  entities:
+    - device_tracker.joakimsiphone
+    - device_tracker.kimsapplewatch

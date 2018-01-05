@@ -26,6 +26,7 @@ input_select:
     options:
      - 'Kök'
      - Badrum
+     - Sovrum
      - Hela Huset
     initial: 'Kök'
     icon: mdi:speaker-wireless
@@ -52,6 +53,7 @@ script:
         entity_id: >
           {% if is_state("input_select.chromecast_radio", "Kök") %} media_player.kitchen
           {% elif is_state("input_select.chromecast_radio", "Badrum") %} media_player.bathroom
+          {% elif is_state("input_select.chromecast_radio", "Sovrum") %} media_player.bedroom
           {% elif is_state("input_select.chromecast_radio", "Hela Huset") %} media_player.whole_house
           {% endif %}
         volume_level: '{{  states.input_slider.volume_radio.state  }}'
@@ -60,6 +62,7 @@ script:
         entity_id: >
           {% if is_state("input_select.chromecast_radio", "Kök") %} media_player.kitchen
           {% elif is_state("input_select.chromecast_radio", "Badrum") %} media_player.bathroom
+          {% elif is_state("input_select.chromecast_radio", "Sovrum") %} media_player.bedroom
           {% elif is_state("input_select.chromecast_radio", "Hela Huset") %} media_player.whole_house
           {% endif %}
         media_content_id: >
@@ -102,7 +105,7 @@ automation:
       entity_id: >
          {% if is_state("input_select.chromecast_radio", "Kök") %} media_player.kitchen
          {% elif is_state("input_select.chromecast_radio", "Badrum") %} media_player.bathroom
-         {% elif is_state("input_select.chromecast_radio", "Korridoren") %} media_player.hallway_speaker
+         {% elif is_state("input_select.chromecast_radio", "Sovrum") %} media_player.bedroom
          {% elif is_state("input_select.chromecast_radio", "Hela Huset") %} media_player.whole_house
          {% endif %}
       volume_level: '{{  states.input_number.volume_radio.state  }}'

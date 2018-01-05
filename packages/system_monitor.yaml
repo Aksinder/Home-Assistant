@@ -14,9 +14,9 @@ homeassistant:
     sensor.hass_uptime:
       friendly_name: Uptime
       icon: mdi:arrow-up-bold-circle-outline
-    script.gitupdate:
-      friendly_name: Git push
-      icon: mdi:github-circle
+#    script.gitupdate:
+#      friendly_name: Git push
+#      icon: mdi:github-circle
     #sensor.nicxehomeassistant_last_build_state:
     #  friendly_name: Last Build State
     sensor.cpu_use:
@@ -62,6 +62,7 @@ sensor:
   - platform: command_line
     command: python3 -c "import requests; print(requests.get('https://pypi.python.org/pypi/homeassistant/json').json()['info']['version'])"
     name: HA Current Version
+
   - platform: systemmonitor
     resources:
       - type: disk_use_percent
@@ -70,9 +71,17 @@ sensor:
       - type: since_last_boot
       - type: processor_use
       - type: last_boot
+
   - platform: command_line
     name: HA Installed Version
     command: /srv/homeassistant/homeassistant_venv/bin/hass --version
+
+  - platform: transmission
+    host: !secret transmission_ip
+    monitored_variables:
+      - 'current_status'
+      - 'download_speed'
+      - 'upload_speed'
 
 ##################################################
 ## Automations

@@ -1,15 +1,15 @@
 media_player_view:
   view: yes
   name: Media
-  icon: mdi:movie
+  icon: mdi:play-pause
   entities:
     - group.radio_card
     - group.tv_card
     - media_player.whole_house
     - media_player.kitchen
+    - media_player.screen_kitchen
     - media_player.bathroom
-    - media_player.skreen_kitchen
-    - media_player.hallway_speaker
+    - media_player.bedroom
     - media_player.spotify
     - media_player.chromecast
     - media_player.honor_8
