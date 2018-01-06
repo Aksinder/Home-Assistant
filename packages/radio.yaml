@@ -94,18 +94,44 @@ group:
 ##################################################
 
 automation:
-  alias: 'Set Radio Volume'
-  hide_entity: true
-  trigger:
-    platform: state
-    entity_id: input_number.volume_radio
-  action:
-    service: media_player.volume_set
-    data_template:
-      entity_id: >
-         {% if is_state("input_select.chromecast_radio", "Kök") %} media_player.kitchen
-         {% elif is_state("input_select.chromecast_radio", "Badrum") %} media_player.bathroom
-         {% elif is_state("input_select.chromecast_radio", "Sovrum") %} media_player.bedroom
-         {% elif is_state("input_select.chromecast_radio", "Hela Huset") %} media_player.whole_house
-         {% endif %}
-      volume_level: '{{  states.input_number.volume_radio.state  }}'
+  - alias: 'Set Radio Volume'
+    hide_entity: true
+    trigger:
+      platform: state
+      entity_id: input_number.volume_radio
+    action:
+      service: media_player.volume_set
+      data_template:
+        entity_id: >
+           {% if is_state("input_select.chromecast_radio", "Kök") %} media_player.kitchen
+           {% elif is_state("input_select.chromecast_radio", "Badrum") %} media_player.bathroom
+           {% elif is_state("input_select.chromecast_radio", "Sovrum") %} media_player.bedroom
+           {% elif is_state("input_select.chromecast_radio", "Hela Huset") %} media_player.whole_house
+           {% endif %}
+        volume_level: '{{  states.input_number.volume_radio.state  }}'
+
+  - alias: Radio P4 at 10 on Saturdays
+    hide_entity: True
+    trigger:
+      platform: time
+      #after: '21:58:00'
+      at: '09:58:00'
+    condition:
+      - condition: time
+        weekday:
+        - sat
+        #- wed
+      - condition: state
+        entity_id: group.all_devices
+        state: 'home'
+    action:
+      - service: tts.google_say
+        entity_id: media_player.whole_house
+        data:
+          message: 'Melodikrysset börjar om 2minuter!'
+      - delay: '00:00:35'
+      - service: media_player.play_media
+        entity_id: media_player.whole_house
+        data:
+          media_content_id: "http://http-live.sr.se/p4gotland-mp3-192"
+          media_content_type: "audio/mp3"

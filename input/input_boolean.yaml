@@ -8,21 +8,6 @@ notify_home:
 #  initial: off
 #  icon: mdi:radio
 
-dish_switch:
-  name: Diskmaskin
-  initial: off
-  icon: mdi:washing-machine
-
-dryer_switch:
-  name: Torktumlare
-  initial: off
-  icon: mdi:washing-machine
-
-washer_switch:
-  name: Tvättmaskin
-  initial: off
-  icon: mdi:washing-machine
-
 good_morning:
   name: Good Morning
   initial: off

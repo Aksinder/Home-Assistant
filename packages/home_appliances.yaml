@@ -1,0 +1,140 @@
+##################################################
+## Customize
+##################################################
+
+homeassistant:
+#  customize:
+
+##################################################
+## Input Bolean
+##################################################
+
+input_boolean:
+  dish_switch:
+    name: Diskmaskin
+    initial: off
+    icon: mdi:washing-machine
+
+  dryer_switch:
+    name: Torktumlare
+    initial: off
+    icon: mdi:washing-machine
+
+  washer_switch:
+    name: Tvättmaskin
+    initial: off
+    icon: mdi:washing-machine
+
+##################################################
+## Sensors
+##################################################
+
+sensor:
+  - platform: template
+    sensors:
+  #    True when washer power level is below 3.4 watts, high threshold of resting state
+  #    Default state is true
+      washer_pwrdn:
+        value_template: "{{ states('sensor.washer_power') | int < 3.4 }}"
+
+  #    True when Dryer power level is above 8.4 watts, showing dryer is in operation (as opposed to just having the door open)
+  #    Default state is false
+      dryer_pwrup:
+        value_template: "{{ states('sensor.dryer_power') | int > 8.4 }}"
+
+  #    True when Dishwasher power level is above 10 watts, showing dishwasher is in operation
+  #    Default state is false
+      dish_pwrup:
+        value_template: "{{ states('sensor.dishwasher_power') | int > 10 }}"
+
+##################################################
+## Automation
+##################################################
+
+# Washer Notification Sequence
+automation:
+  - alias: 'Washer Start'
+    hide_entity: True
+    trigger:
+      platform: state
+      entity_id: sensor.washer_pwrdn
+      to: 'False'
+    action:
+      service: input_boolean.turn_on
+      entity_id: input_boolean.washer_switch
+
+  - alias: 'Washer Done'
+    hide_entity: True
+    trigger:
+      platform: state
+      entity_id: sensor.washer_pwrdn
+      to: 'True'
+      for:
+        minutes: 3
+    condition:
+        condition: state
+        entity_id: input_boolean.washer_switch
+        state: 'on'
+    action:
+      - service: notify.pushbullet
+        data:
+          message: 'Tvättmaskinen är klar!'
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.washer_switch
+
+  # Dryer Notification Sequence
+  - alias: 'Dryer Start'
+    hide_entity: True
+    trigger:
+      platform: state
+      entity_id: sensor.dryer_pwrup
+      to: 'True'
+    action:
+      service: input_boolean.turn_on
+      entity_id: input_boolean.dryer_switch
+
+  - alias: 'Dryer Done'
+    hide_entity: True
+    trigger:
+      platform: state
+      entity_id: sensor.dryer_power
+      to: '1.6'
+    condition:
+      condition: state
+      entity_id: input_boolean.dryer_switch
+      state: 'on'
+    action:
+      - service: notify.pushbullet
+        data:
+          message: 'Torktumlaren är klar!'
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.dryer_switch
+
+  # Dishwasher Notification Sequence
+  - alias: 'Dishwasher Start'
+    hide_entity: True
+    trigger:
+      platform: state
+      entity_id: sensor.dish_pwrup
+      to: 'True'
+    action:
+      service: input_boolean.turn_on
+      entity_id: input_boolean.dish_switch
+
+  - alias: 'Dishwasher Done'
+    hide_entity: True
+    trigger:
+      platform: state
+      entity_id: sensor.dishwasher_power
+      to: '2.4'
+    condition:
+      condition: state
+      entity_id: input_boolean.dish_switch
+      state: 'on'
+    action:
+      - service: notify.pushbullet
+        data:
+          message: 'Diskmaskinen är klar!'
+      - delay: 0:10
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.dish_switch
