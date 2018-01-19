@@ -3,56 +3,57 @@
 ##################################################
 
 homeassistant:
-  customize:
+#  customize:
+google_assistant:
+  entity_config:
     light.koksfonster:
-      google_assistant: true
-      google_assistant_name: Kitchen light
-      google_assistant_type: light
+      name: Kitchen light
+      type: light
       aliases:
         - kitchen
     light.niskait:
-      google_assistant: true
-      google_assistant_name: office light
-      google_assistant_type: light
+      name: office light
+      type: light
       aliases:
         - office
     cover.blindsbedroom_level:
-      google_assistant: true
-      google_assistant_name: Bedroom blinds
-      google_assistant_type: switch
+      name: Bedroom blinds
+      type: switch
       aliases:
         - bedroom shades
         - bedroom covers
         - rullgardin sovrum
     cover.blindsalgots_level:
-      google_assistant: true
-      google_assistant_name: Algots blind
-      google_assistant_type: switch
+      name: Algots blind
+      type: switch
       aliases:
         - algots shades
     light.algots_fonsterlampa:
-      google_assistant: true
-      google_assistant_name: Algot window
-      google_assistant_type: light
+      name: Algot window
+      type: light
       aliases:
         - algot window light
         - window light algot
     script.goodmorning:
-      google_assistant: true
-      google_assistant_name: Good morning
-      google_assistant_type: switch
+      name: Good morning
+      type: switch
       aliases:
         - god morgon
         - morrn
         - morning
     script.goodnight:
-      google_assistant: true
-      google_assistant_name: Good night
-      google_assistant_type: switch
+      name: Good night
+      type: switch
       aliases:
         - night
         - time to sleep
         - god natt
+    script.lumos:
+      name: Lumos
+      type: light
+      aliases:
+        - lumos
+        - light on
 
 ##################################################
 ## Automation
@@ -78,6 +79,7 @@ script:
         - light.koksfonster
         - light.byran
         - light.algots_fonsterlampa
+        - light.office
     - service: cover.open_cover
       entity_id:
         - cover.blindsalgots_level
@@ -98,3 +100,9 @@ script:
       entity_id:
         - cover.blindsalgots_level
         - cover.blindsbedroom_level
+  lumos:
+    alias: 'Lumos'
+    sequence:
+    - service: light.turn_on
+      entity_id:
+        - group.all_lights

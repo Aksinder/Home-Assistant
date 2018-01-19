@@ -21,6 +21,9 @@ history: !include history.yaml
 logbook: !include logbook.yaml
 logger: !include logger.yaml
 
+customizer:
+  custom_ui: local
+
 http:
   api_password: !secret api_password
   ssl_certificate: !secret ssl_certificate

@@ -1,3 +1,4 @@
+# https://assistant.google.com/services/a/uid/000000a7ce97b0ec?hl=en-US
 project_id: !secret ga_project_id
 client_id: !secret ga_client_id
 access_token: ! secret ga_access_token

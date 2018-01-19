@@ -31,6 +31,8 @@ homeassistant:
     sensor.last_boot:
       friendly_name: Last boot
       icon: mdi:timer
+    sensor.bbk:
+      icon: mdi:speedometer
 
 ##################################################
 ## Group
@@ -62,6 +64,16 @@ sensor:
   - platform: command_line
     command: python3 -c "import requests; print(requests.get('https://pypi.python.org/pypi/homeassistant/json').json()['info']['version'])"
     name: HA Current Version
+
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+
+  - platform: file
+    file_path: /home/homeassistant/.homeassistant/bbk.txt
+    name: BBK
 
   - platform: systemmonitor
     resources:
@@ -99,11 +111,20 @@ automation:
           message: "Home Assistant have rebooted and is back online"
       - delay:
           minutes: 1
-      - service: notify.pushbullet
-        data:
-          message: "Home Assistant have rebooted and is back online"
-      - delay:
-          minutes: 1
+#      - service: notify.pushbullet
+#        data:
+#          message: "Home Assistant have rebooted and is back online"
+#      - delay:
+#          minutes: 1
+
+  - alias: BBK
+    trigger:
+      platform: time
+      hours: '/4'
+      minutes: 00
+      seconds: 00
+    action:
+      - service: shell_command.bbk
 
   - alias: "Update available"
     initial_state: 'on'
@@ -114,9 +135,9 @@ automation:
       - service: notify.html5
         data:
           message: "Home Assistant {{ states.updater.updater.state }} is now available."
-      - service: notify.pushbullet
-        data:
-          message: "Home Assistant {{ states.updater.updater.state }} is now available."
+#      - service: notify.pushbullet
+#        data:
+#          message: "Home Assistant {{ states.updater.updater.state }} is now available."
 
   - alias: Hass New Device Tracked
     initial_state: 'on'
@@ -124,7 +145,7 @@ automation:
       platform: event
       event_type: device_tracker_new_device
     action:
-      - service: notify.pushbullet
+      - service: notify.html5
         data_template:
           message: >
             'New device tracked:
@@ -156,18 +177,15 @@ automation:
         data_template:
           message: >
             {{ trigger.to_state.name }} is {{ trigger.to_state.state }}
-      - service: notify.html5
-        data_template:
-          message: >
-            {{ trigger.to_state.name }} is {{ trigger.to_state.state }}
 
-  - alias: Heal ZWave Nightly
+  - alias: Heal zwave Nightly
     hide_entity: True
     trigger:
       platform: time
       at: '02:31:00'
     action:
       service: zwave.heal_network
+
 # https://community.home-assistant.io/t/intruder-alert/24084/31
 # https://community.home-assistant.io/t/numeric-state/20739/2
   - alias: "Send notification upon failed login attempt"
@@ -188,12 +206,17 @@ automation:
             {% else %}
               {{ message }}
             {% endif %}
-      - service: notify.pushbullet
-        data_template:
-          message: >-
-            {% set message = trigger.event.data.service_data.message %}
-            {% if 'login attempt' in message|lower %}
-              {{ message }}: http://www.ip-tracker.org/locator/ip-lookup.php?ip={{ message.split('from ')[1] }}
-            {% else %}
-              {{ message }}
-            {% endif %}
+#      - service: notify.pushbullet
+#        data_template:
+#          message: >-
+#            {% set message = trigger.event.data.service_data.message %}
+#            {% if 'login attempt' in message|lower %}
+#              {{ message }}: http://www.ip-tracker.org/locator/ip-lookup.php?ip={{ message.split('from ')[1] }}
+#            {% else %}
+#              {{ message }}
+#            {% endif %}
+
+shell_command:
+  bbk: /home/homeassistant/bbk.sh
+  #bbk: "/bin/echo '{{ states.sensor.date__time.state }}' >> /home/homeassistant/.homeassistant/bbk.txt"
+  #  bbk: '/usr/bin/bbk_cli | xargs >> /home/homeassistant/.homeassistant/bbk.txt'

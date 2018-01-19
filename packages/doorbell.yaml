@@ -39,7 +39,7 @@ automation:
         entity_id: input_boolean.doorbell_ringing
         to: 'on'
     action:
-      - service: notify.pushbullet
+      - service: notify.html5
         data:
           title: 'Doorbell ringing!'
           message: 'Someone is at the front door'

@@ -1,5 +1,5 @@
 #default_view:
-test_default:
+info_view:
   view: yes
   name: Info
   icon: mdi:information-outline

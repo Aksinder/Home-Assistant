@@ -99,6 +99,6 @@ automation:
       entity_id: switch.musfalla_1, switch.musfalla_2
       to: 'off'
     action:
-      - service: notify.pushbullet
+      - service: notify.html5
         data:
           message: "Jag har fångat något åt dig!"

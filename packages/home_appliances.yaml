@@ -3,7 +3,22 @@
 ##################################################
 
 homeassistant:
-#  customize:
+  customize:
+    sensor.fibaro_system_fgwpef_wall_plug_gen5_power:
+      hidden: False
+      friendly_name: Kylskåp
+    sensor.dishwasher_power:
+      hidden: false
+    sensor.dryer_power:
+      hidden: false
+    sensor.washer_power:
+      hidden: false
+    sensor.dishwasher_energy:
+      hidden: false
+    sensor.dryer_energy:
+      hidden: false
+    sensor.washer_energy:
+      hidden: false
 
 ##################################################
 ## Input Bolean
@@ -76,7 +91,7 @@ automation:
         entity_id: input_boolean.washer_switch
         state: 'on'
     action:
-      - service: notify.pushbullet
+      - service: notify.html5
         data:
           message: 'Tvättmaskinen är klar!'
       - service: input_boolean.turn_off
@@ -104,7 +119,7 @@ automation:
       entity_id: input_boolean.dryer_switch
       state: 'on'
     action:
-      - service: notify.pushbullet
+      - service: notify.html5
         data:
           message: 'Torktumlaren är klar!'
       - service: input_boolean.turn_off
@@ -132,7 +147,7 @@ automation:
       entity_id: input_boolean.dish_switch
       state: 'on'
     action:
-      - service: notify.pushbullet
+      - service: notify.html5
         data:
           message: 'Diskmaskinen är klar!'
       - delay: 0:10

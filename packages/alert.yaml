@@ -16,7 +16,6 @@ alert:
     can_acknowledge: True
     skip_first: False
     notifiers:
-      - pushbullet
       - html5
   freezer_temp:
     name: Frys varm
@@ -27,7 +26,6 @@ alert:
     can_acknowledge: True
     skip_first: False
     notifiers:
-      - pushbullet
       - html5
   house_temp:
     name: Huset fryser
@@ -38,7 +36,6 @@ alert:
     can_acknowledge: True
     skip_first: False
     notifiers:
-      - pushbullet
       - html5
 
 sensor:

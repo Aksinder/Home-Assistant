@@ -1,0 +1,3 @@
+test_view:
+  view: yes
+  entities: light.sovrum

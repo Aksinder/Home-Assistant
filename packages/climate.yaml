@@ -22,3 +22,15 @@ automation:
           temperature: 23
           target_temp_high: 25
           target_temp_low: 19
+  - alias: "Temperatur ner natt"
+    hide_entity: false
+    trigger:
+      - platform: time
+        at: '22:45:00'
+    action:
+      - service: climate.set_temperature
+        data:
+          entity_id: climate.ir_heating_1
+          temperature: 19
+          target_temp_high: 25
+          target_temp_low: 19

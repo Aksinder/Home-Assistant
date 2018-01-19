@@ -7,6 +7,6 @@
     entity_id: light.vaggbrytare_koket
   action:
       service: light.toggle
-      entity_id: 
+      entity_id:
       - light.koksfonster
       - switch.skarm_kok

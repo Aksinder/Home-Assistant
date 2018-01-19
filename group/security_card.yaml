@@ -8,6 +8,7 @@ security_card:
     - sensor.pir_koket
     - sensor.pir_badrum
     - sensor.pir_groventre
+    - binary_sensor.multisensorsecondentrance_motion_sensor
     - sensor.pir_niska_it
     - sensor.magnetic_switch_entrance
     - sensor.magnetic_switch_niskait

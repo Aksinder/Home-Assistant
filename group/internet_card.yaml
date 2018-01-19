@@ -1,6 +1,7 @@
 internet_card:
   name: Internet status
   entities:
+    - sensor.bbk
     - sensor.transmission_status
     - sensor.transmission_down_speed
     - sensor.transmission_up_speed

@@ -33,3 +33,7 @@
       name: Uppfart
     0b11000289bc0cfe07010f70:
       name: Julbelysning (Ute)
+
+- platform: tplink
+  host: 192.168.2.119
+  name: Office

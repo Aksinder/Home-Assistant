@@ -3,6 +3,7 @@ power_card:
   name: Power
   icon: mdi:home-variant
   entities:
+    - sensor.fibaro_system_fgwpef_wall_plug_gen5_power
     - sensor.dishwasher_power
     - sensor.dryer_power
     - sensor.washer_power

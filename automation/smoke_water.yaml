@@ -10,7 +10,7 @@
       - sensor.smokekitchen_smoke
     to: '255'
   action:
-    - service: notify.pushbullet
+    - service: notify.html5
       data_template:
         title: "Niska@Home! '{{ trigger.to_state.attributes.friendly_name }}'"
         message: >
@@ -24,7 +24,7 @@
       - binary_sensor.watersensor_sensor
     to: 'on'
   action:
-    - service: notify.pushbullet
+    - service: notify.html5
       data_template:
         title: "Niska@Home! '{{ trigger.to_state.attributes.friendly_name }}'"
         message: >

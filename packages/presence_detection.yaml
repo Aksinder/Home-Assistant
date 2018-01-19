@@ -1,0 +1,165 @@
+##################################################
+## Customize
+##################################################
+
+homeassistant:
+  customize:
+    sensor.robert:
+      entity_picture: /local/robert.png
+    sensor.tina:
+      entity_picture: /local/tina.jpg
+    group.emilia:
+      entity_picture: /local/emilia.jpg
+    group.kim:
+      entity_picture: /local/kim.jpg
+    group.stefan:
+      entity_picture: /local/stefan.jpg
+
+input_select:
+  robert_status_dropdown:
+    name: Robert
+    options:
+      - Home
+      - Just Arrived
+      - Just Left
+      - Away
+      - Extended Away
+    initial: Home
+  tina_status_dropdown:
+    name: Tina
+    options:
+      - Home
+      - Just Arrived
+      - Just Left
+      - Away
+      - Extended Away
+    initial: Home
+
+##################################################
+## Sensors
+##################################################
+
+sensor:
+  - platform: template
+    sensors:
+      robert_status:
+        value_template: '{{ states.input_select.robert_status_dropdown.state }}'
+        friendly_name: 'Robert'
+#        entity_id: input_select.robert_status_dropdown
+      tina_status:
+        value_template: '{{ states.input_select.tina_status_dropdown.state }}'
+        friendly_name: 'Tina'
+#        entity_id: input_select.tina_status_dropdown
+
+##################################################
+## Group
+##################################################
+group:
+  familj:
+    view: no
+    name: Familj
+    icon: mdi:home-variant
+    entities:
+      - sensor.robert_status
+      - sensor.tina_status
+      - device_tracker.teija_xperia_xz
+  guests:
+    view: no
+    name: Gäster
+    icon: mdi:home-variant
+    entities:
+      - device_tracker.elvys_iphone
+      - group.stefan
+      - device_tracker.kerstins_honor8
+      - device_tracker.pereriks_xperiacompact
+      - group.kim
+      - group.emilia
+
+  robert:
+    name: Robert
+    entities:
+      - device_tracker.roberts_h8_bt_mac
+      - device_tracker.roberts_h8_mac
+
+  tina:
+    name: Tina
+    entities:
+      - device_tracker.Tinas_Xperia_XZ1_compact
+
+  stefan:
+    name: Stefan
+    entities:
+      - device_tracker.stefans_iphone
+      - device_tracker.stefans_iphone_bt
+
+  emilia:
+    name: Emilia
+    entities:
+      - device_tracker.emiliasiphone
+      - device_tracker.emilias_iphone_bt
+
+  kim:
+    name: Kim
+    entities:
+      - device_tracker.joakimsiphone
+      - device_tracker.kimsapplewatch
+
+##################################################
+## Automations
+##################################################
+
+automation:
+- alias: Mark Robert as just arrived
+  trigger:
+    - platform: state
+      entity_id: sensor.robert
+      from: 'not_home'
+      to: 'home'
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.robert_status_dropdown
+        option: Just Arrived
+
+- alias: Mark Robert as home
+  trigger:
+    - platform: state
+      entity_id: input_select.robert_status_dropdown
+      to: 'Just Arrived'
+      for:
+        minutes: 10
+    - platform: state
+      entity_id: input_select.robert_status_dropdown
+      from: 'Just Left'
+      to: 'Just Arrived'
+  condition:
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.robert_status_dropdown
+        option: Home
+
+- alias: Mark Robert as just left
+  trigger:
+    - platform: state
+      entity_id: sensor.robert
+      from: 'home'
+      to: 'not_home'
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.robert_status_dropdown
+        option: Just Left
+
+- alias: Mark robert as away
+  trigger:
+    - platform: state
+      entity_id: input_select.robert_status_dropdown
+      to: 'Just Left'
+      for:
+        minutes: 10
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.robert_status_dropdown
+        option: Away

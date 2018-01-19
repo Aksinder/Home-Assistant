@@ -67,7 +67,7 @@ automation:
         entity_id: sensor.ups_status
         to: 'ONBATT'
     action:
-      - service: notify.pushbullet
+      - service: notify.html5
         data:
           title: 'UPS Status!'
 #          message: 'Strömavbrott!'
@@ -81,9 +81,37 @@ automation:
         entity_id: sensor.ups_status
         to: 'ONLINE'
     action:
-      - service: notify.pushbullet
+      - service: notify.html5
         data:
           title: 'UPS Status!'
 #          message: 'Strömmen åter!'
         data_template:
           message: "Strömmen tillbaka: '{{ states.sensor.ups_transfer_from_battery.state }}'"
+
+  - alias: UPS Eaton Offline
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: sensor.eaton3s_status_data
+        to: 'OB DISCHRG'
+    action:
+      - service: notify.html5
+        data:
+          title: 'UPS Status!'
+#          message: 'Strömavbrott!'
+        data_template:
+          message: "Strömavbrott Eaton: '{{ states.sensor.date__time.state }}'"
+
+  - alias: UPS Eaton Online
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: sensor.eaton3s_status_data
+        to: 'OL CHRG'
+    action:
+      - service: notify.html5
+        data:
+          title: 'UPS Status!'
+#          message: 'Strömmen åter!'
+        data_template:
+          message: "Strömmen tillbaka Eaton: '{{ states.sensor.date__time.state }}'"

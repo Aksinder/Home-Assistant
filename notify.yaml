@@ -1,6 +1,6 @@
-- platform: pushbullet
-  api_key: !secret pushbullet_api_key
-  name: Pushbullet
+#- platform: pushbullet
+#  api_key: !secret pushbullet_api_key
+#  name: Pushbullet
 
 - platform: html5
   name: html5
