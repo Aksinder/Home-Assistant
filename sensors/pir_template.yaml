@@ -11,7 +11,7 @@
         {% if is_state("sensor.pirkitchen_alarm_level", "255") %}
           mdi:run-fast
         {% else %}
-          mdi:run
+          mdi:walk
         {% endif %}
       friendly_name: Rörelsedeckare Köket
     pir_badrum:
@@ -25,7 +25,7 @@
         {% if is_state("sensor.multisensorbathroom_burglar", "8") %}
           mdi:run-fast
         {% else %}
-          mdi:run
+          mdi:walk
         {% endif %}
       friendly_name: Rörelsedeckare Badrum
     pir_niska_it:
@@ -39,7 +39,7 @@
         {% if is_state("binary_sensor.multisensorniskait_sensor", "on") %}
           mdi:run-fast
         {% else %}
-          mdi:run
+          mdi:walk
         {% endif %}
       friendly_name: Rörelsedeckare Niska.it
     pir_groventre:
@@ -53,6 +53,6 @@
         {% if is_state("binary_sensor.secondentrance", "on") %}
           mdi:run-fast
         {% else %}
-          mdi:run
+          mdi:walk
         {% endif %}
       friendly_name: Rörelsedeckare Groventré

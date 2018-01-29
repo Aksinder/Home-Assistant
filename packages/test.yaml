@@ -11,16 +11,19 @@ script:
     sequence:
       - service: light.turn_on
         data_template:
-          entity_id: light.office
+          entity_id: light.bedroom
           rgb_color: [22,0,30] #Purple
           brightness: 10
   test2:
     sequence:
       - service: light.turn_on
         data_template:
-          entity_id: light.office
+          entity_id: light.bedroom
           rgb_color: [0,252,185]
           brightness: 100
       - service: notify.html5
         data:
           message: 'Test notifikation!'
+  test_secret:
+    sequence:
+      - service: shell_command.test

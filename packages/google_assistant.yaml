@@ -79,7 +79,7 @@ script:
         - light.koksfonster
         - light.byran
         - light.algots_fonsterlampa
-        - light.office
+        - light.bedroom
     - service: cover.open_cover
       entity_id:
         - cover.blindsalgots_level
@@ -96,6 +96,7 @@ script:
         - light.iris_matta
         - light.sovrum
         - light.niskait
+        - light.bedroom
     - service: cover.close_cover
       entity_id:
         - cover.blindsalgots_level

@@ -21,8 +21,8 @@ history: !include history.yaml
 logbook: !include logbook.yaml
 logger: !include logger.yaml
 
-customizer:
-  custom_ui: local
+#customizer:
+#  custom_ui: local
 
 http:
   api_password: !secret api_password
@@ -47,10 +47,11 @@ discovery:
 conversation:
 
 zwave:
-  usb_path: /dev/ttyACM0
-
+  #usb_path: /dev/ttyACM0
+  usb_path: /dev/ttyACM1
 rfxtrx:
-  device: /dev/ttyUSB0
+  #device: /dev/ttyUSB0
+  device: /dev/ttyUSB1
   debug:
 
 sun:

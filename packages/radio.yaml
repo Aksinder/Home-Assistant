@@ -114,13 +114,11 @@ automation:
     hide_entity: True
     trigger:
       platform: time
-      #after: '21:58:00'
       at: '09:58:00'
     condition:
       - condition: time
         weekday:
         - sat
-        #- wed
       - condition: state
         entity_id: group.all_devices
         state: 'home'

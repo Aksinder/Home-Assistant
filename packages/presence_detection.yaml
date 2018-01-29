@@ -1,12 +1,14 @@
+# https://philhawthorne.com/making-home-assistants-presence-detection-not-so-binary/
+
 ##################################################
 ## Customize
 ##################################################
 
 homeassistant:
   customize:
-    sensor.robert:
+    sensor.robert_status:
       entity_picture: /local/robert.png
-    sensor.tina:
+    sensor.tina_status:
       entity_picture: /local/tina.jpg
     group.emilia:
       entity_picture: /local/emilia.jpg
@@ -14,26 +16,27 @@ homeassistant:
       entity_picture: /local/kim.jpg
     group.stefan:
       entity_picture: /local/stefan.jpg
+    group.elvy:
+      entity_picture: /local/elvy.jpg
 
 input_select:
   robert_status_dropdown:
     name: Robert
     options:
-      - Home
-      - Just Arrived
-      - Just Left
-      - Away
-      - Extended Away
-    initial: Home
+      - Hemma
+      - Kom nyss hem
+      - Lämnade nyss huset
+      - Borta
+      - Borta längre än 24H
+
   tina_status_dropdown:
     name: Tina
     options:
-      - Home
-      - Just Arrived
-      - Just Left
-      - Away
-      - Extended Away
-    initial: Home
+      - Hemma
+      - Kom nyss hem
+      - Lämnade nyss huset
+      - Borta
+      - Borta längre än 24H
 
 ##################################################
 ## Sensors
@@ -45,11 +48,9 @@ sensor:
       robert_status:
         value_template: '{{ states.input_select.robert_status_dropdown.state }}'
         friendly_name: 'Robert'
-#        entity_id: input_select.robert_status_dropdown
       tina_status:
         value_template: '{{ states.input_select.tina_status_dropdown.state }}'
         friendly_name: 'Tina'
-#        entity_id: input_select.tina_status_dropdown
 
 ##################################################
 ## Group
@@ -62,7 +63,9 @@ group:
     entities:
       - sensor.robert_status
       - sensor.tina_status
+      - group.algot
       - device_tracker.teija_xperia_xz
+
   guests:
     view: no
     name: Gäster
@@ -78,19 +81,31 @@ group:
   robert:
     name: Robert
     entities:
-      - device_tracker.roberts_h8_bt_mac
+      - device_tracker.roberts_h8_bt
       - device_tracker.roberts_h8_mac
 
   tina:
     name: Tina
     entities:
-      - device_tracker.Tinas_Xperia_XZ1_compact
+      - device_tracker.tinas_xperia_xz1_compact
+
+  algot:
+    name: Algot
+    entities:
+      - device_tracker.algots_telefon
+      - device_tracker.algots_dator
 
   stefan:
     name: Stefan
     entities:
       - device_tracker.stefans_iphone
       - device_tracker.stefans_iphone_bt
+
+  elvy:
+    name: Elvy
+    entities:
+      - device_tracker.elvysiphone
+      - device_tracker.elvysiphone_bt
 
   emilia:
     name: Emilia
@@ -109,57 +124,134 @@ group:
 ##################################################
 
 automation:
-- alias: Mark Robert as just arrived
+- alias: Sätt person 'Kom nyss hem'
   trigger:
     - platform: state
-      entity_id: sensor.robert
+      entity_id: group.robert
+      from: 'not_home'
+      to: 'home'
+    - platform: state
+      entity_id: group.tina
       from: 'not_home'
       to: 'home'
   action:
     - service: input_select.select_option
-      data:
-        entity_id: input_select.robert_status_dropdown
-        option: Just Arrived
+      data_template:
+        entity_id: >
+          {% if trigger.entity_id == 'group.robert' %}
+            input_select.robert_status_dropdown
+          {% else %}
+            input_select.tina_status_dropdown
+          {% endif %}
+        option: >
+          {% if trigger.entity_id == 'group.robert' %}
+            {% if states.input_select.robert_status_dropdown.state == 'Lämnade nyss' %}
+              Hemma
+            {% else %}
+              Kom nyss hem
+            {% endif %}
+          {% else %}
+            {% if states.input_select.tina_status_dropdown.state == 'Lämnade nyss' %}
+              Hemma
+            {% else %}
+              Kom nyss hem
+            {% endif %}
+          {% endif %}
 
-- alias: Mark Robert as home
+- alias: Sätt person 'Hemma'
   trigger:
     - platform: state
       entity_id: input_select.robert_status_dropdown
-      to: 'Just Arrived'
+      to: 'Kom nyss hem'
+      for:
+        minutes: 10
+    - platform: state
+      entity_id: input_select.tina_status_dropdown
+      to: 'Kom nyss hem'
       for:
         minutes: 10
     - platform: state
       entity_id: input_select.robert_status_dropdown
-      from: 'Just Left'
-      to: 'Just Arrived'
-  condition:
+      from: 'Lämnade nyss huset'
+      to: 'Kom nyss hem'
+    - platform: state
+      entity_id: input_select.tina_status_dropdown
+      from: 'Lämnade nyss huset'
+      to: 'Kom nyss hem'
   action:
     - service: input_select.select_option
-      data:
-        entity_id: input_select.robert_status_dropdown
-        option: Home
+      data_template:
+        entity_id: >
+          {% if trigger.entity_id == 'input_select.robert_status_dropdown' %}
+            input_select.robert_status_dropdown
+          {% else %}
+            input_select.tina_status_dropdown
+          {% endif %}
+        option: Hemma
 
-- alias: Mark Robert as just left
+- alias: Sätt person 'Lämnade nyss huset'
   trigger:
     - platform: state
-      entity_id: sensor.robert
+      entity_id: group.robert
+      from: 'home'
+      to: 'not_home'
+    - platform: state
+      entity_id: group.tina
       from: 'home'
       to: 'not_home'
   action:
     - service: input_select.select_option
-      data:
-        entity_id: input_select.robert_status_dropdown
-        option: Just Left
+      data_template:
+        entity_id: >
+          {% if trigger.entity_id == 'group.robert' %}
+            input_select.robert_status_dropdown
+          {% else %}
+            input_select.tina_status_dropdown
+          {% endif %}
+        option: Lämnade nyss huset
 
-- alias: Mark robert as away
+- alias: Sätt person 'Borta'
   trigger:
     - platform: state
       entity_id: input_select.robert_status_dropdown
-      to: 'Just Left'
+      to: 'Lämnade nyss huset'
+      for:
+        minutes: 10
+    - platform: state
+      entity_id: input_select.tina_status_dropdown
+      to: 'Lämnade nyss huset'
       for:
         minutes: 10
   action:
     - service: input_select.select_option
-      data:
-        entity_id: input_select.robert_status_dropdown
-        option: Away
+      data_template:
+        entity_id: >
+          {% if trigger.entity_id == 'input_select.robert_status_dropdown' %}
+            input_select.robert_status_dropdown
+          {% else %}
+            input_select.tina_status_dropdown
+          {% endif %}
+        option: Borta
+
+- alias: Sätt person 'Borta längre än 24H'
+  trigger:
+    - platform: state
+      entity_id: input_select.robert_status_dropdown
+      to: 'Borta'
+      for:
+        hours: 24
+    - platform: state
+      entity_id: input_select.tina_status_dropdown
+      to: 'Borta'
+      for:
+        hours: 24
+  action:
+    - service: input_select.select_option
+      data_template:
+        entity_id: >
+          {% if trigger.entity_id == 'input_select.robert_status_dropdown' %}
+            input_select.robert_status_dropdown
+          {% else %}
+            input_select.tina_status_dropdown
+          {% endif %}
+        option: Borta längre än 24H

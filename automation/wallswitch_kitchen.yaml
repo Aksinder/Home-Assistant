@@ -9,4 +9,3 @@
       service: light.toggle
       entity_id:
       - light.koksfonster
-      - switch.skarm_kok

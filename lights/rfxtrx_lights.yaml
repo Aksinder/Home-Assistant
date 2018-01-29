@@ -36,4 +36,4 @@
 
 - platform: tplink
   host: 192.168.2.119
-  name: Office
+  name: Bedroom

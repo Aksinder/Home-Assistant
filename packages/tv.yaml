@@ -3,7 +3,9 @@
 ##################################################
 
 homeassistant:
-#  customize:
+  customize:
+    input_select.tv_station:
+      icon: mdi:television-classic
 #    tv_script:
 #      friendly_name: Starta
 #      icon: mdi:play-pause
@@ -20,7 +22,7 @@ input_select:
      - 'SVT 1'
      - 'SVT 2'
     initial: Barnkanalen
-    icon: mdi:television-classic
+#    icon: mdi:television-classic
 #  chromecast_tv:
 #    name: 'Välj tv:'
 #    options:
@@ -98,9 +100,5 @@ automation:
     service: media_player.volume_set
     data_template:
       entity_id: >
-         {% if is_state("input_select.chromecast_tv", "Kök") %} media_player.kitchen
-         {% elif is_state("input_select.chromecast_tv", "Badrum") %} media_player.bathroom
-         {% elif is_state("input_select.chromecast_tv", "Korridoren") %} media_player.hallway_speaker
-         {% elif is_state("input_select.chromecast_tv", "Hela Huset") %} media_player.whole_house
-         {% endif %}
+        media_player.screen_kitchen
       volume_level: '{{  states.input_number.volume_tv.state  }}'

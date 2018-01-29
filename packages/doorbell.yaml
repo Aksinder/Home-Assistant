@@ -8,10 +8,10 @@ switch:
     signal_repetitions: 3
     devices:
       0b1100760154afc201040f70:
-        name: Ringklocka
+        name: Doorbell Front Door
         fire_event: true
       0b1100ec00ad819e01040f80:
-        name: Ringklocka Entré
+        name: Doorbell Office
         fire_event: true
 
 input_boolean:

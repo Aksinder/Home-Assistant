@@ -18,8 +18,21 @@ homeassistant:
       hidden: False
       friendly_name: Brandvarnare Garage
       unit_of_measurement: "%"
+    sensor.zwave_battery_smoke_kitchen:
+      hidden: False
+      friendly_name: Brandvarnare Kök
+      unit_of_measurement: "%"
     sensor.frysen_battery:
       friendly_name: Frysen
+      unit_of_measurement: "%"
+    sensor.kylen_battery:
+      friendly_name: Kylen
+      unit_of_measurement: "%"
+    sensor.krypgrund_battery:
+      friendly_name: Krypgrund
+      unit_of_measurement: "%"
+    sensor.vinden_battery:
+      friendly_name: Vinden
       unit_of_measurement: "%"
 
 ##################################################
@@ -40,8 +53,12 @@ group:
     entities:
       - sensor.zwave_battery_smoke_bedroom
       - sensor.zwave_battery_smoke_algots
+      - sensor.zwave_battery_smoke_kitchen
       - sensor.zwave_battery_smoke_garage
       - sensor.frysen_battery
+      - sensor.kylen_battery
+      - sensor.krypgrund_battery
+      - sensor.vinden_battery
 
 ##################################################
 ## Sensors
@@ -87,6 +104,18 @@ sensor:
           {% else %}
             mdi:battery-alert
           {% endif %}
+      zwave_battery_smoke_kitchen:
+        value_template: '{{ states.zwave.smokekitchen.attributes.battery_level|default(0) }}'
+        icon_template: >
+          {% set battery_level = states.zwave.smokekitchen.attributes.battery_level | default(0) | int %}
+          {% set battery_round = (battery_level / 10) |int * 10 %}
+          {% if battery_round >= 100 %}
+            mdi:battery
+          {% elif battery_round > 0 %}
+            mdi:battery-{{ battery_round }}
+          {% else %}
+            mdi:battery-alert
+          {% endif %}
       zwave_battery_smoke_garage:
         value_template: '{{ states.zwave.smokegarage.attributes.battery_level|default(0) }}'
         icon_template: >
@@ -103,6 +132,42 @@ sensor:
         value_template: '{{ states.sensor.frysen_temperature.attributes["Battery numeric"] *10 }}'
         icon_template: >
           {% set battery_level = states.sensor.frysen_temperature.attributes["Battery numeric"] | default(0) | int %}
+          {% set battery_round = (battery_level) |int * 10 %}
+          {% if battery_round >= 100 %}
+            mdi:battery
+          {% elif battery_round > 0 %}
+            mdi:battery-{{ battery_round }}
+          {% else %}
+            mdi:battery-alert
+          {% endif %}
+      kylen_battery:
+        value_template: '{{ states.sensor.kylskapet_temperature.attributes["Battery numeric"] *10 }}'
+        icon_template: >
+          {% set battery_level = states.sensor.kylskapet_temperature.attributes["Battery numeric"] | default(0) | int %}
+          {% set battery_round = (battery_level) |int * 10 %}
+          {% if battery_round >= 100 %}
+            mdi:battery
+          {% elif battery_round > 0 %}
+            mdi:battery-{{ battery_round }}
+          {% else %}
+            mdi:battery-alert
+          {% endif %}
+      krypgrund_battery:
+        value_template: '{{ states.sensor.krypgrund_temperature.attributes["Battery numeric"] *10 }}'
+        icon_template: >
+          {% set battery_level = states.sensor.krypgrund_temperature.attributes["Battery numeric"] | default(0) | int %}
+          {% set battery_round = (battery_level) |int * 10 %}
+          {% if battery_round >= 100 %}
+            mdi:battery
+          {% elif battery_round > 0 %}
+            mdi:battery-{{ battery_round }}
+          {% else %}
+            mdi:battery-alert
+          {% endif %}
+      vinden_battery:
+        value_template: '{{ states.sensor.vinden_temperature.attributes["Battery numeric"] *10 }}'
+        icon_template: >
+          {% set battery_level = states.sensor.vinden_temperature.attributes["Battery numeric"] | default(0) | int %}
           {% set battery_round = (battery_level) |int * 10 %}
           {% if battery_round >= 100 %}
             mdi:battery
@@ -133,9 +198,9 @@ automation:
           title: Low Battery
           message: "{{ states('sensor.low_battery') }}"
           notification_id: low-battery-alert
-      - service: notify.html5
+#      - service: notify.html5
       #- service: persistent_notification.create
-        data_template:
-          title: Low Battery
-          message: "{{ states('sensor.low_battery') }}"
-          notification_id: low-battery-alert
+#        data_template:
+#          title: Low Battery
+#          message: "{{ states('sensor.low_battery') }}"
+#          notification_id: low-battery-alert

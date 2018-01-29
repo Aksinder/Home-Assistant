@@ -14,9 +14,9 @@ homeassistant:
     sensor.hass_uptime:
       friendly_name: Uptime
       icon: mdi:arrow-up-bold-circle-outline
-#    script.gitupdate:
-#      friendly_name: Git push
-#      icon: mdi:github-circle
+    script.gitupdate:
+      friendly_name: Git push
+      icon: mdi:github-circle
     #sensor.nicxehomeassistant_last_build_state:
     #  friendly_name: Last Build State
     sensor.cpu_use:
@@ -111,11 +111,6 @@ automation:
           message: "Home Assistant have rebooted and is back online"
       - delay:
           minutes: 1
-#      - service: notify.pushbullet
-#        data:
-#          message: "Home Assistant have rebooted and is back online"
-#      - delay:
-#          minutes: 1
 
   - alias: BBK
     trigger:
@@ -126,6 +121,16 @@ automation:
     action:
       - service: shell_command.bbk
 
+  - alias: 'Temperatur_nu'
+    hide_entity: false
+    initial_state: True
+    trigger:
+      platform: time
+      minutes: '/3'
+      seconds: '00'
+    action:
+      service: shell_command.temperatur_nu
+
   - alias: "Update available"
     initial_state: 'on'
     trigger:
@@ -135,9 +140,6 @@ automation:
       - service: notify.html5
         data:
           message: "Home Assistant {{ states.updater.updater.state }} is now available."
-#      - service: notify.pushbullet
-#        data:
-#          message: "Home Assistant {{ states.updater.updater.state }} is now available."
 
   - alias: Hass New Device Tracked
     initial_state: 'on'
@@ -206,17 +208,7 @@ automation:
             {% else %}
               {{ message }}
             {% endif %}
-#      - service: notify.pushbullet
-#        data_template:
-#          message: >-
-#            {% set message = trigger.event.data.service_data.message %}
-#            {% if 'login attempt' in message|lower %}
-#              {{ message }}: http://www.ip-tracker.org/locator/ip-lookup.php?ip={{ message.split('from ')[1] }}
-#            {% else %}
-#              {{ message }}
-#            {% endif %}
 
 shell_command:
-  bbk: /home/homeassistant/bbk.sh
-  #bbk: "/bin/echo '{{ states.sensor.date__time.state }}' >> /home/homeassistant/.homeassistant/bbk.txt"
-  #  bbk: '/usr/bin/bbk_cli | xargs >> /home/homeassistant/.homeassistant/bbk.txt'
+  bbk: /home/homeassistant/.homeassistant/shell/bbk.sh
+  temperatur_nu: "/usr/bin/curl http://www.temperatur.nu/rapportera.php?hash={{ states.sensor.secrets.attributes.secret_temperatur_nu }}{{ states.sensor.ute_temperature.state }}"
