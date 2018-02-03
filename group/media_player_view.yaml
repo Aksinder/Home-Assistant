@@ -8,6 +8,7 @@ media_player_view:
     - media_player.whole_house
     - media_player.kitchen
     - media_player.screen_kitchen
+    - media_player.algots_speaker
     - media_player.bathroom
     - media_player.bedroom
     - media_player.spotify

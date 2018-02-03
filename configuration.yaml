@@ -48,10 +48,10 @@ conversation:
 
 zwave:
   #usb_path: /dev/ttyACM0
-  usb_path: /dev/ttyACM1
+  usb_path: /dev/ttyACM0
 rfxtrx:
   #device: /dev/ttyUSB0
-  device: /dev/ttyUSB1
+  device: /dev/ttyUSB0
   debug:
 
 sun:

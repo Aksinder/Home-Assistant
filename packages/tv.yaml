@@ -22,15 +22,12 @@ input_select:
      - 'SVT 1'
      - 'SVT 2'
     initial: Barnkanalen
-#    icon: mdi:television-classic
-#  chromecast_tv:
-#    name: 'Välj tv:'
-#    options:
-#     - 'Kök'
-#     - Badrum
-#     - Hela Huset
-#    initial: 'Kök'
-#    icon: mdi:television-classic
+  chromecast_tv:
+    name: 'Välj tv:'
+    options:
+     - 'Kök'
+     - Vardagsrum
+    initial: 'Kök'
 
 input_number:
   volume_tv:
@@ -56,11 +53,9 @@ script:
     - service: media_player.play_media
       data_template:
         entity_id: >
-          media_player.screen_kitchen
-#         {% if is_state("input_select.chromecast_tv", "Kök") %} media_player.koket
-#         {% elif is_state("input_select.chromecast_tv", "Badrum") %} media_player.badrum
-#         {% elif is_state("input_select.chromecast_tv", "Hela Huset") %} media_player.hela_huset_
-#         {% endif %}
+         {% if is_state("input_select.chromecast_tv", "Kök") %} media_player.screen_kitchen
+         {% elif is_state("input_select.chromecast_tv", "Vardagsrum") %} media_player.chromecast
+         {% endif %}
         media_content_id: >
          {% if is_state("input_select.tv_station", "Barnkanalen") %}
             https://svtb-b.akamaized.net/se/svtb/master.m3u8
@@ -81,7 +76,7 @@ group:
     control: hidden
     entities:
       - input_select.tv_station
-#      - input_select.chromecast_tv
+      - input_select.chromecast_tv
       - input_number.volume_tv
       - script.tv_script
       - media_player.screen_kitchen

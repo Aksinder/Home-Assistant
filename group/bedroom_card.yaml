@@ -3,6 +3,7 @@ bedroom_card:
   control: hidden
   entities:
     - light.sovrum
+    - light.bedroom
     - light.sovrum_byra
     - light.sovrum_taklampa
     - cover.blindsbedroom_level
