@@ -1,0 +1,4 @@
+default: critical
+logs:
+  homeassistant.components.http.ban: warning
+  root: warn

@@ -1,5 +1,5 @@
 - platform: rfxtrx
-  automatic_add: false
+  automatic_add: true
   devices:
     0a14117e00140b01000060:
       name: Niska.it Magnetkontakt

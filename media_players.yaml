@@ -1,9 +1,15 @@
 - platform: cast
   host: 192.168.2.32
-  name: 'Kitchen'
+  name: 'Algots speaker'
+- platform: cast
+  host: 192.168.2.32
+  name: 'Kitchen speaker'
 - platform: cast
   host: 192.168.2.33
-  name: Bathroom
+  name: 'Bathroom speaker'
+- platform: cast
+  host: 192.168.2.34
+  name: 'Bedroom speaker'
 - platform: cast
   host: 192.168.2.35
   name: 'Screen Kitchen'
