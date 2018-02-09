@@ -6,7 +6,7 @@ sensor:
     name: SSL cert expiry
     unit_of_measurement: dagar
     scan_interval: 10800
-    command: "ssl-cert-check -b -c /etc/letsencrypt/live/cloud.niska.it/cert.pem | awk '{ print $NF }'"
+    command: ~/.homeassistant/shell/ssl-cert-check.sh"
 
 shell_command:
   renew_ssl: ~/certbot/certbot-auto renew --quiet --no-self-upgrade --standalone --preferred-challenges http-01

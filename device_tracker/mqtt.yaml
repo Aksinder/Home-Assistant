@@ -1,0 +1,9 @@
+- platform: mqtt
+  devices:
+    Roberts_H8_BT: 'bluetooth/presence/Roberts_H8_BT'
+    ElvysiPhone_BT: 'bluetooth/presence/ElvysiPhone_BT'
+    Algots_klocka: 'bluetooth/presence/Algots_klocka'
+    Stefans_iPhone_BT: 'bluetooth/presence/Stefans_iPhone_BT'
+    emilias_iphone_bt: 'bluetooth/presence/emilias_iphone_bt'
+    tinitell_9295: 'bluetooth/presence/tinitell_9295'
+    kerstins_honor8_bt: 'bluetooth/presence/kerstins_honor8_bt'

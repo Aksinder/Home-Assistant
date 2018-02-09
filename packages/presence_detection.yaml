@@ -73,10 +73,11 @@ group:
     entities:
       - device_tracker.elvys_iphone
       - group.stefan
-      - device_tracker.kerstins_honor8
+      - group.kerstin
       - device_tracker.pereriks_xperiacompact
       - group.kim
       - group.emilia
+
 
   robert:
     name: Robert
@@ -94,6 +95,7 @@ group:
     entities:
       - device_tracker.algots_telefon
       - device_tracker.algots_dator
+      - device_tracker.algots_klocka
 
   stefan:
     name: Stefan
@@ -106,6 +108,12 @@ group:
     entities:
       - device_tracker.elvysiphone
       - device_tracker.elvysiphone_bt
+
+  kerstin:
+    name: Kerstin
+    entities:
+      - device_tracker.kerstins_honor8
+      - device_tracker.kerstins_honor8_bt
 
   emilia:
     name: Emilia
