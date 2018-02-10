@@ -1,8 +1,8 @@
 - platform: ffmpeg
   name: Uppfart
-  input: -rtsp_transport tcp -i !secret camera_uppfart_url
+  input: -rtsp_transport tcp -i rtsp://192.168.2.81:554/tcp_live/ch0_1
   extra_arguments: -pred 1
 - platform: ffmpeg
   name: Baksidan
-  input: -rtsp_transport tcp -i !secret camera_baksida_url
+  input: -rtsp_transport tcp -i rtsp://192.168.2.82:554/tcp_live/ch0_1
   extra_arguments: -pred 1

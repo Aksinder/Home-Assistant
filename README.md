@@ -34,5 +34,6 @@ Im running HA in a vm on my server.
 * Harmony Hub
 * Chromecast x2
 * Chromecast audio x3
+* Google Home
 * Google Home Mini x2
 * TP-Link LB130
