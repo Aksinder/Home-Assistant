@@ -6,9 +6,3 @@
   name: Baksidan
   input: -rtsp_transport tcp -i !secret camera_baksida_url
   extra_arguments: -pred 1
-# Snapshot path: !secret camera_snapshotpath
-#- platform: onvif
-#  name: Test
-#  host: 192.168.2.81
-#  port: 12001
-#  username: admin
