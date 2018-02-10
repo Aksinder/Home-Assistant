@@ -53,9 +53,9 @@ discovery:
 conversation:
 
 zwave:
-  usb_path: /dev/ttyACM0
+  usb_path: /dev/serial/by-id/usb-0658_0200-if00
 rfxtrx:
-  device: /dev/ttyUSB0
+  device: /dev/serial/by-id/usb-RFXCOM_RFXtrx433_A1QC0EY-if00-port0
   debug:
 mqtt:
   discovery: true
