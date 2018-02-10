@@ -18,10 +18,10 @@
   action:
     - service: media_player.volume_set
       data_template:
-        entity_id: media_player.kitchen
+        entity_id: media_player.kitchen_speaker
         volume_level: 0.6
     -  service: tts.google_say
-       entity_id: media_player.kitchen
+       entity_id: media_player.kitchen_speaker
        data_template:
          message: "God Morgon! Temperaturen ute är: '{{ states.sensor.ute_temperature.state }}'"
     -  service: input_boolean.turn_on

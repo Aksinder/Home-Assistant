@@ -6,7 +6,7 @@ media_player_view:
     - group.radio_card
     - group.tv_card
     - media_player.whole_house
-    - media_player.kitchen
+    - media_player.kitchen_speaker
     - media_player.screen_kitchen
     - media_player.algots_speaker
     - media_player.bathroom
