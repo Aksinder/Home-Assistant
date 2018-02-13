@@ -1,7 +1,8 @@
 # https://assistant.google.com/services/a/uid/000000a7ce97b0ec?hl=en-US
 project_id: !secret ga_project_id
 client_id: !secret ga_client_id
-access_token: ! secret ga_access_token
+access_token: !secret ga_access_token
+agent_user_id: !secret ga_agent_user_id
 api_key: !secret ga_api_key
 expose_by_default: false
 exposed_domains:
