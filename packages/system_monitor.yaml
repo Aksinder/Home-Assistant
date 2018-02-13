@@ -19,13 +19,13 @@ homeassistant:
       icon: mdi:github-circle
     #sensor.nicxehomeassistant_last_build_state:
     #  friendly_name: Last Build State
-    sensor.cpu_use:
+    sensor.processor_use:
       friendly_name: CPU
       icon: mdi:raspberrypi
-    sensor.disk_use_home:
+    sensor.disk_use_percent_home:
       friendly_name: SD card
       icon: mdi:micro-sd
-    sensor.ram_available:
+    sensor.memory_free:
       friendly_name: RAM available
       icon: mdi:memory
     sensor.last_boot:
