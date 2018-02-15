@@ -22,7 +22,8 @@ frontend:
 
 # Enables configuration UI
 config:
-recorder: !include recorder.yaml
+recorder:
+  db_url: !secret mysql_db
 history: !include history.yaml
 logbook: !include logbook.yaml
 #logger: !include logger.yaml
