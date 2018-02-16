@@ -22,7 +22,10 @@
     at: '22:00:00'
   condition:
   - condition: state
-    entity_id: sensor.robert, sensor.tina
+    entity_id: sensor.robert
+    to: 'not_home'
+  - condition: state
+    entity_id: sensor.tina
     to: 'not_home'
   action:
     delay: '{{ (range(0, 2)|random|int) }}:{{ (range(1, 59)|random|int) }}:00'
