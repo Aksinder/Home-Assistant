@@ -72,8 +72,8 @@ sensor:
       - 'date_time'
 
   - platform: file
-#    file_path: /home/homeassistant/.homeassistant/bbk.txt
-    file_path: "~/.homeassistant/bbk.txt"
+    file_path: /home/homeassistant/.homeassistant/bbk.txt
+#    file_path: "~/.homeassistant/bbk.txt"
     name: BBK
 
   - platform: systemmonitor
@@ -211,6 +211,6 @@ automation:
             {% endif %}
 
 shell_command:
-#  bbk: /home/homeassistant/.homeassistant/shell/bbk.sh
-  bbk: "~/.homeassistant/shell/bbk.sh"
+  bbk: /home/homeassistant/.homeassistant/shell/bbk.sh
+#  bbk: "~/.homeassistant/shell/bbk.sh"
   temperatur_nu: "/usr/bin/curl http://www.temperatur.nu/rapportera.php?hash={{ states.sensor.secrets.attributes.secret_temperatur_nu }}{{ states.sensor.ute_temperature.state }}"
