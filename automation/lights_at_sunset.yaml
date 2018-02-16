@@ -19,7 +19,7 @@
 - alias: 'turn_lights_off'
   trigger:
     platform: time
-    after: '22:00:00'
+    at: '22:00:00'
   condition:
   - condition: state
     entity_id: sensor.robert, sensor.tina
