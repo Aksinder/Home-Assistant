@@ -25,6 +25,6 @@
       entity_id: group.familj
       state: 'not_home'
   action:
-    delay: '{{ (range(0, 2)|random|int) }}:{{ (range(0, 59)|random|int) }}:00'
+#    delay: '{{ (range(0, 2)|random|int) }}:{{ (range(0, 59)|random|int) }}:00'
     service: script.turn_on
     entity_id: script.goodnight
