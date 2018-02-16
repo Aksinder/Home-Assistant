@@ -15,3 +15,16 @@
       - light.iris_matta
       - light.bedroom
       - light.julbelysning_ute
+
+- alias: 'turn_lights_off'
+  trigger:
+    platform: time
+    after: '22:00:00'
+  condition:
+  - condition: state
+    entity_id: sensor.robert, sensor.tina
+    to: 'not_home'
+  action:
+    delay: '{{ (range(0, 2)|random|int) }}:{{ (range(1, 59)|random|int) }}:00'
+    service: script.turn_on
+    entity_id: script.goodnight

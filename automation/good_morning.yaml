@@ -19,7 +19,7 @@
     - service: media_player.volume_set
       data_template:
         entity_id: media_player.kitchen_speaker
-        volume_level: 0.6
+        volume_level: 0.4
     -  service: tts.google_say
        entity_id: media_player.kitchen_speaker
        data_template:

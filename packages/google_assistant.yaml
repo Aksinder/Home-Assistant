@@ -66,6 +66,7 @@ automation:
     event: start
   action:
     service: google_assistant.request_sync
+
 ##################################################
 ## Script
 ##################################################
