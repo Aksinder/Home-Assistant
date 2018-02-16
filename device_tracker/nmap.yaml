@@ -1,4 +1,5 @@
 - platform: nmap_tracker
+  scan_options: " -F --host-timeout 5s --scan-delay 1m"
   home_interval: 5
   hosts:
     - 192.168.2.132

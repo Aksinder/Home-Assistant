@@ -6,10 +6,11 @@ sensor:
     name: SSL cert expiry
     unit_of_measurement: dagar
     scan_interval: 10800
-    command: ~/.homeassistant/shell/ssl-cert-check.sh"
+    command: "~/.homeassistant/shell/ssl-cert-check.sh"
+#    command: /home/homeassistant/.homeassistant/shell/ssl-cert-check.sh
 
 shell_command:
-  renew_ssl: ~/certbot/certbot-auto renew --quiet --no-self-upgrade --standalone --preferred-challenges http-01
+  renew_ssl: "~/certbot/certbot-auto renew --quiet --no-self-upgrade --standalone --preferred-challenges http-01"
 
 automation:
   - alias: Auto Renew SSL Cert
