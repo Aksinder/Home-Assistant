@@ -23,7 +23,7 @@
   condition:
     - condition: state
       entity_id: group.familj
-      to: 'not_home'
+      state: 'not_home'
   action:
 #    delay: '{{ (range(0, 2)|random|int) }}:{{ (range(0, 59)|random|int) }}:00'
     service: script.turn_on
