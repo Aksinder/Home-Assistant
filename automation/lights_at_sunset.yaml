@@ -22,7 +22,7 @@
     at: '22:45:00'
   condition:
     - condition: state
-      entity_id: group.familj
+      entity_id: device_tracker.roberts_h8_mac
       state: 'not_home'
   action:
 #    delay: '{{ (range(0, 2)|random|int) }}:{{ (range(0, 59)|random|int) }}:00'
