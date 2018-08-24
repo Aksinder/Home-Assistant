@@ -31,9 +31,15 @@ Im running HA in a vm on my server.
     * Nexa WBT-912 x2
     * Nexa WMR-252 x3
     * A bunch of 433mhz plug-in outlets.
+  * Conbee
+    * Xiaomi MCCGQ01LM Smart Windows Door Sensor x2
+    * Xiaomi Mijia IR Intelligent Human Body Sensor x2
+    * Ikea Trådfri E27 Bulb
+    * Ikea Tråfri Remote
+    * Ikea Trådfri Dimmer
 * Harmony Hub
 * Chromecast x2
 * Chromecast audio x3
 * Google Home
-* Google Home Mini x2
+* Google Home Mini x3
 * TP-Link LB130
